@@ -459,13 +459,6 @@ export default function Home() {
             <a href="#features">Features</a>
             <a href="#contact">Contact</a>
           </div>
-          <div className="footer-status">
-            <span className="pulse-dot" />
-            <span>
-              <small>PROJECT STATUS</small>
-              In development
-            </span>
-          </div>
         </div>
         <div className="footer-bottom section-shell">
           <span>© 2026 Panzi. Smart pantry system concept.</span>
