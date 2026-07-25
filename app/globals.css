@@ -1195,6 +1195,426 @@ footer {
   font-size: 10px;
 }
 
+/* Opening sequence */
+.site-intro-pending .site-header,
+.site-intro-pending .hero-copy > *,
+.site-intro-pending .hero-visual::before,
+.site-intro-pending .hero-visual::after,
+.site-intro-pending .phone-card,
+.site-intro-pending .floating-card,
+.site-intro-pending .concept-label {
+  opacity: 0;
+}
+
+.site-intro-ready .site-header {
+  animation: headerArrive 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.site-intro-ready .hero-copy > * {
+  animation: copyRise 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .hero-copy > :nth-child(1) {
+  animation-delay: 120ms;
+}
+
+.site-intro-ready .hero-copy > :nth-child(2) {
+  animation-delay: 220ms;
+}
+
+.site-intro-ready .hero-copy > :nth-child(3) {
+  animation-delay: 340ms;
+}
+
+.site-intro-ready .hero-copy > :nth-child(4) {
+  animation-delay: 460ms;
+}
+
+.site-intro-ready .hero-copy > :nth-child(5) {
+  animation-delay: 580ms;
+}
+
+.site-intro-ready .hero-visual::before {
+  animation: backdropBloom 980ms 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .hero-visual::after {
+  animation: backdropBloom 1100ms 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .phone-card {
+  animation: phoneArrive 1050ms 310ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .phone-top,
+.site-intro-ready .app-heading,
+.site-intro-ready .freshness-card,
+.site-intro-ready .scan-card,
+.site-intro-ready .app-section-title,
+.site-intro-ready .food-card,
+.site-intro-ready .phone-nav > span {
+  opacity: 0;
+  animation: phoneContentPop 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .phone-top {
+  animation-delay: 720ms;
+}
+
+.site-intro-ready .app-heading {
+  animation-delay: 790ms;
+}
+
+.site-intro-ready .freshness-card {
+  animation-delay: 900ms;
+}
+
+.site-intro-ready .scan-card {
+  animation-delay: 1010ms;
+}
+
+.site-intro-ready .app-section-title {
+  animation-delay: 1110ms;
+}
+
+.site-intro-ready .food-card:nth-child(1) {
+  animation-delay: 1190ms;
+}
+
+.site-intro-ready .food-card:nth-child(2) {
+  animation-delay: 1270ms;
+}
+
+.site-intro-ready .phone-nav > span:nth-child(1) {
+  animation-delay: 1320ms;
+}
+
+.site-intro-ready .phone-nav > span:nth-child(2) {
+  animation-delay: 1380ms;
+}
+
+.site-intro-ready .phone-nav > span:nth-child(3) {
+  animation-delay: 1440ms;
+}
+
+.site-intro-ready .phone-nav > span:nth-child(4) {
+  animation-delay: 1500ms;
+}
+
+.site-intro-ready .floating-recipe {
+  animation: recipeCardSpring 820ms 1230ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+}
+
+.site-intro-ready .floating-saved {
+  animation: savedCardSpring 820ms 1370ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+}
+
+.site-intro-ready .concept-label {
+  animation: softFade 600ms 1600ms ease both;
+}
+
+.site-intro-ready .orbit-one {
+  animation: orbitSpin 23s 1500ms linear infinite;
+}
+
+.site-intro-ready .orbit-two {
+  animation: orbitSpinReverse 28s 1500ms linear infinite;
+}
+
+.site-intro-ready .health-ring {
+  animation: ringWake 900ms 1050ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.site-intro-ready .scan-icon {
+  animation: scanPulse 2.8s 1750ms ease-in-out infinite;
+}
+
+.site-intro-ready .avatar {
+  animation: gentleFloat 3.6s 1700ms ease-in-out infinite;
+}
+
+.site-intro-ready .food-card:nth-child(1) .food-emoji {
+  animation: ingredientFloat 3.8s 1750ms ease-in-out infinite;
+}
+
+.site-intro-ready .food-card:nth-child(2) .food-emoji {
+  animation: ingredientFloat 4.2s 1950ms ease-in-out infinite reverse;
+}
+
+/* Scroll-led storytelling */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(42px);
+  transition:
+    opacity 850ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 850ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.reveal-left {
+  transform: translateX(-46px);
+}
+
+.scroll-reveal.reveal-scale {
+  transform: scale(0.82) rotate(-5deg);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1) rotate(0);
+}
+
+.stagger-group > * {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition:
+    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-group.is-visible > * {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.stagger-group.is-visible > :nth-child(1) {
+  transition-delay: 80ms;
+}
+
+.stagger-group.is-visible > :nth-child(2) {
+  transition-delay: 170ms;
+}
+
+.stagger-group.is-visible > :nth-child(3) {
+  transition-delay: 260ms;
+}
+
+.stagger-group.is-visible > :nth-child(4) {
+  transition-delay: 350ms;
+}
+
+.stagger-group.is-visible > :nth-child(5) {
+  transition-delay: 440ms;
+}
+
+.stagger-group.is-visible > :nth-child(6) {
+  transition-delay: 530ms;
+}
+
+/* Small, tactile responses */
+.freshness-card,
+.scan-card,
+.food-card,
+.floating-card,
+.path-card,
+.step-visual,
+.feature-icon,
+.orbit-item {
+  transition:
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 240ms ease;
+}
+
+.freshness-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(16, 40, 32, 0.16);
+}
+
+.scan-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 22px rgba(16, 40, 32, 0.1);
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(16, 40, 32, 0.1);
+}
+
+.floating-card:hover {
+  z-index: 5;
+  transform: translateY(-5px) rotate(0);
+}
+
+.feature-card:hover .feature-icon {
+  transform: rotate(-7deg) scale(1.08);
+}
+
+.step-card:hover .step-visual {
+  transform: translateY(-7px);
+}
+
+.orbit-item:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: scale(1.12) rotate(0);
+}
+
+@keyframes headerArrive {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes copyRise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes backdropBloom {
+  from {
+    opacity: 0;
+    transform: rotate(-15deg) scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-7deg) scale(1);
+  }
+}
+
+@keyframes phoneArrive {
+  0% {
+    opacity: 0;
+    transform: translateY(95px) rotate(-5deg) scale(0.88);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-8px) rotate(3.5deg) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(2deg) scale(1);
+  }
+}
+
+@keyframes phoneContentPop {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes recipeCardSpring {
+  0% {
+    opacity: 0;
+    transform: translate(70px, 16px) rotate(10deg) scale(0.65);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-5px, -2px) rotate(1deg) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(3deg) scale(1);
+  }
+}
+
+@keyframes savedCardSpring {
+  0% {
+    opacity: 0;
+    transform: translate(-70px, 18px) rotate(-12deg) scale(0.65);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(5px, -2px) rotate(-2deg) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(-4deg) scale(1);
+  }
+}
+
+@keyframes softFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitSpinReverse {
+  from {
+    transform: rotate(48deg);
+  }
+  to {
+    transform: rotate(-312deg);
+  }
+}
+
+@keyframes ringWake {
+  0% {
+    opacity: 0;
+    transform: rotate(-80deg) scale(0.45);
+  }
+  75% {
+    opacity: 1;
+    transform: rotate(24deg) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(18deg) scale(1);
+  }
+}
+
+@keyframes scanPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 243, 107, 0);
+    transform: scale(1);
+  }
+  45% {
+    box-shadow: 0 0 0 7px rgba(217, 243, 107, 0.22);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gentleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes ingredientFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+}
+
 @media (max-width: 1040px) {
   .hero {
     grid-template-columns: 0.9fr 1.1fr;
@@ -1466,6 +1886,27 @@ footer {
   *,
   *::before,
   *::after {
+    animation: none !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .site-intro-pending .site-header,
+  .site-intro-pending .hero-copy > *,
+  .site-intro-pending .hero-visual::before,
+  .site-intro-pending .hero-visual::after,
+  .site-intro-pending .phone-card,
+  .site-intro-pending .floating-card,
+  .site-intro-pending .concept-label,
+  .site-intro-ready .phone-top,
+  .site-intro-ready .app-heading,
+  .site-intro-ready .freshness-card,
+  .site-intro-ready .scan-card,
+  .site-intro-ready .app-section-title,
+  .site-intro-ready .food-card,
+  .site-intro-ready .phone-nav > span,
+  .scroll-reveal,
+  .stagger-group > * {
+    opacity: 1;
+    transform: none;
   }
 }

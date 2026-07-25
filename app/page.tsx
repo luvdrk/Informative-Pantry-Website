@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const features = [
   {
@@ -70,11 +70,52 @@ function BrandMark() {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [introReady, setIntroReady] = useState(false);
+  const [pantryScore, setPantryScore] = useState(0);
+
+  useEffect(() => {
+    let scoreFrame = 0;
+    let scoreStart = 0;
+    const introFrame = requestAnimationFrame(() => setIntroReady(true));
+
+    const scoreTimer = window.setTimeout(() => {
+      const countScore = (time: number) => {
+        if (!scoreStart) scoreStart = time;
+        const progress = Math.min((time - scoreStart) / 1050, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setPantryScore(Math.round(86 * eased));
+        if (progress < 1) scoreFrame = requestAnimationFrame(countScore);
+      };
+      scoreFrame = requestAnimationFrame(countScore);
+    }, 900);
+
+    const revealItems = document.querySelectorAll<HTMLElement>(".scroll-reveal");
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -45px" },
+    );
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+
+    return () => {
+      cancelAnimationFrame(introFrame);
+      cancelAnimationFrame(scoreFrame);
+      window.clearTimeout(scoreTimer);
+      revealObserver.disconnect();
+    };
+  }, []);
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main>
+    <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
       <header className="site-header">
         <a className="brand" href="#home" aria-label="Panzi home">
           <BrandMark />
@@ -160,7 +201,7 @@ export default function Home() {
                 <p>Most items are ready to enjoy.</p>
               </div>
               <div className="health-ring">
-                <span>86</span>
+                <span>{pantryScore}</span>
               </div>
             </div>
             <div className="scan-card">
@@ -214,7 +255,7 @@ export default function Home() {
       </section>
 
       <section className="problem-section section-shell" id="overview">
-        <div className="section-heading">
+        <div className="section-heading scroll-reveal">
           <span className="section-number">01 / THE PROBLEM</span>
           <h2>
             Good food gets forgotten.
@@ -223,7 +264,7 @@ export default function Home() {
           </h2>
         </div>
         <div className="problem-grid">
-          <div className="problem-copy">
+          <div className="problem-copy scroll-reveal reveal-left">
             <p>
               Busy households often lose track of what is already in the
               pantry. Food expires, the same groceries are bought twice, and
@@ -234,7 +275,10 @@ export default function Home() {
               support into one thoughtful experience.
             </p>
           </div>
-          <div className="problem-path" aria-label="From pantry problem to Panzi solution">
+          <div
+            className="problem-path scroll-reveal stagger-group"
+            aria-label="From pantry problem to Panzi solution"
+          >
             <div className="path-card muted-card">
               <span className="path-symbol">?</span>
               <strong>What do I have?</strong>
@@ -252,7 +296,7 @@ export default function Home() {
 
       <section className="steps-section" id="how-it-works">
         <div className="section-shell">
-          <div className="section-heading split-heading">
+          <div className="section-heading split-heading scroll-reveal">
             <div>
               <span className="section-number light-number">02 / HOW IT WORKS</span>
               <h2>
@@ -266,7 +310,7 @@ export default function Home() {
               current, and ready to help.
             </p>
           </div>
-          <div className="steps-grid">
+          <div className="steps-grid scroll-reveal stagger-group">
             {steps.map((step) => (
               <article className="step-card" key={step.number}>
                 <span className="step-number">{step.number}</span>
@@ -291,7 +335,7 @@ export default function Home() {
       </section>
 
       <section className="features-section section-shell" id="features">
-        <div className="section-heading feature-heading">
+        <div className="section-heading feature-heading scroll-reveal">
           <div>
             <span className="section-number">03 / WHAT PANZI DOES</span>
             <h2>
@@ -305,7 +349,7 @@ export default function Home() {
             your kitchen to the moment they become a meal.
           </p>
         </div>
-        <div className="feature-grid">
+        <div className="feature-grid scroll-reveal stagger-group">
           {features.map((feature, index) => (
             <article
               className={`feature-card feature-${index + 1}`}
@@ -318,7 +362,7 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <div className="more-features">
+        <div className="more-features scroll-reveal">
           <span>Also inside Panzi</span>
           <div>
             <span>Nutrition tracking</span>
@@ -331,7 +375,7 @@ export default function Home() {
 
       <section className="vision-section" id="vision">
         <div className="vision-glow" />
-        <div className="vision-content">
+        <div className="vision-content scroll-reveal reveal-left">
           <span className="section-number light-number">04 / OUR VISION</span>
           <p className="vision-kicker">A smarter pantry can shape a better habit.</p>
           <h2>
@@ -350,7 +394,7 @@ export default function Home() {
             Meet Panzi <span>↑</span>
           </a>
         </div>
-        <div className="vision-orbit" aria-hidden="true">
+        <div className="vision-orbit scroll-reveal reveal-scale" aria-hidden="true">
           <div className="orbit-core">
             <BrandMark />
           </div>
