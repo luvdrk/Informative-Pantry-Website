@@ -1272,7 +1272,7 @@ footer {
 }
 
 .site-intro-ready .phone-card {
-  animation: phoneArrive 1100ms 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: phoneArrive 900ms 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .phone-top,
@@ -1284,67 +1284,67 @@ footer {
 .site-intro-ready .phone-nav,
 .site-intro-ready .phone-nav > span {
   opacity: 0;
-  animation: phoneContentPop 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: phoneContentPop 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .phone-top {
-  animation-delay: 1350ms;
+  animation-delay: 1100ms;
 }
 
 .site-intro-ready .app-heading {
-  animation-delay: 1600ms;
+  animation-delay: 1280ms;
 }
 
 .site-intro-ready .freshness-card {
-  animation-delay: 1850ms;
+  animation-delay: 1480ms;
 }
 
 .site-intro-ready .scan-card {
-  animation-delay: 2150ms;
+  animation-delay: 1710ms;
 }
 
 .site-intro-ready .app-section-title {
-  animation-delay: 2400ms;
+  animation-delay: 1920ms;
 }
 
 .site-intro-ready .food-card:nth-child(1) {
-  animation-delay: 2620ms;
+  animation-delay: 2100ms;
 }
 
 .site-intro-ready .food-card:nth-child(2) {
-  animation-delay: 2840ms;
+  animation-delay: 2270ms;
 }
 
 .site-intro-ready .phone-nav {
-  animation-delay: 3070ms;
+  animation-delay: 2440ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(1) {
-  animation-delay: 3200ms;
+  animation-delay: 2540ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(2) {
-  animation-delay: 3330ms;
+  animation-delay: 2640ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(3) {
-  animation-delay: 3460ms;
+  animation-delay: 2740ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(4) {
-  animation-delay: 3590ms;
+  animation-delay: 2840ms;
 }
 
 .site-intro-ready .floating-recipe {
-  animation: recipeCardSpring 760ms 3950ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+  animation: recipeCardSpring 650ms 3070ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
 }
 
 .site-intro-ready .floating-saved {
-  animation: savedCardSpring 760ms 4650ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+  animation: savedCardSpring 650ms 3520ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
 }
 
 .site-intro-ready .concept-label {
-  animation: softFade 600ms 5150ms ease both;
+  animation: softFade 500ms 4000ms ease both;
 }
 
 .site-intro-ready .orbit-one {
@@ -1356,23 +1356,23 @@ footer {
 }
 
 .site-intro-ready .health-ring {
-  animation: ringWake 900ms 2000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ringWake 700ms 1580ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .scan-icon {
-  animation: scanPulse 2.8s 2750ms ease-in-out infinite;
+  animation: scanPulse 2.8s 2300ms ease-in-out infinite;
 }
 
 .site-intro-ready .avatar {
-  animation: gentleFloat 3.6s 2300ms ease-in-out infinite;
+  animation: gentleFloat 3.6s 1900ms ease-in-out infinite;
 }
 
 .site-intro-ready .food-card:nth-child(1) .food-emoji {
-  animation: ingredientFloat 3.8s 3450ms ease-in-out infinite;
+  animation: ingredientFloat 3.8s 2800ms ease-in-out infinite;
 }
 
 .site-intro-ready .food-card:nth-child(2) .food-emoji {
-  animation: ingredientFloat 4.2s 3650ms ease-in-out infinite reverse;
+  animation: ingredientFloat 4.2s 3000ms ease-in-out infinite reverse;
 }
 
 /* Scroll-led storytelling */

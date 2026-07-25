@@ -82,13 +82,13 @@ export default function Home() {
     const scoreTimer = window.setTimeout(() => {
       const countScore = (time: number) => {
         if (!scoreStart) scoreStart = time;
-        const progress = Math.min((time - scoreStart) / 1050, 1);
+        const progress = Math.min((time - scoreStart) / 850, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         setPantryScore(Math.round(86 * eased));
         if (progress < 1) scoreFrame = requestAnimationFrame(countScore);
       };
       scoreFrame = requestAnimationFrame(countScore);
-    }, 1850);
+    }, 1480);
 
     const revealItems = document.querySelectorAll<HTMLElement>(".scroll-reveal");
     const revealObserver = new IntersectionObserver(
