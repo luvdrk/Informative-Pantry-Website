@@ -11,6 +11,9 @@
   --paper: #fffdf7;
   --warm: #ec9b6d;
   --line: rgba(24, 53, 45, 0.14);
+  --pantry-brown: #6f4e37;
+  --pantry-brown-deep: #4a3025;
+  --pantry-oat: #f5ead8;
 }
 
 * {
@@ -47,30 +50,31 @@ button {
 .site-header {
   position: sticky;
   z-index: 50;
-  top: 14px;
+  top: 12px;
   display: flex;
   width: min(1180px, calc(100% - 48px));
-  min-height: 68px;
-  margin: 14px auto 0;
+  min-height: 66px;
+  margin: 12px auto 0;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 10px 8px 18px;
-  border: 1px solid rgba(24, 53, 45, 0.1);
-  border-radius: 22px;
-  background: rgba(255, 253, 247, 0.94);
+  padding: 7px 9px 7px 10px;
+  border: 1px solid rgba(255, 253, 247, 0.15);
+  border-radius: 20px;
+  background: rgba(111, 78, 55, 0.97);
   box-shadow:
-    0 16px 40px rgba(16, 40, 32, 0.08),
-    0 2px 6px rgba(16, 40, 32, 0.05);
+    0 18px 42px rgba(74, 48, 37, 0.18),
+    0 2px 7px rgba(74, 48, 37, 0.12);
   backdrop-filter: blur(20px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 27px;
+  gap: 11px;
+  color: var(--paper);
+  font-size: 23px;
   font-weight: 800;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.2px;
 }
 
 .brand-mark {
@@ -114,20 +118,58 @@ button {
   background: var(--lime);
 }
 
+.site-header .brand-mark {
+  width: 44px;
+  height: 44px;
+  flex-basis: 44px;
+  border: 1px solid rgba(255, 253, 247, 0.32);
+  border-radius: 13px;
+  background: var(--pantry-oat);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 7px 14px rgba(74, 48, 37, 0.24);
+}
+
+.site-header .brand-leaf {
+  left: 13px;
+  width: 10px;
+  height: 17px;
+  background: var(--pantry-brown);
+}
+
+.site-header .brand-leaf-one {
+  top: 7px;
+}
+
+.site-header .brand-leaf-two {
+  top: 15px;
+  left: 21px;
+}
+
+.site-header .brand-dot {
+  right: 9px;
+  bottom: 9px;
+  width: 5px;
+  height: 5px;
+  background: var(--warm);
+}
+
 .site-nav {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: flex-end;
-  gap: 34px;
-  font-size: 14px;
+  gap: 30px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .site-nav > a:not(.nav-cta) {
   position: relative;
-  color: #42584f;
-  transition: color 180ms ease;
+  color: rgba(255, 253, 247, 0.7);
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .site-nav > a:not(.nav-cta)::after {
@@ -136,7 +178,7 @@ button {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--forest);
+  background: var(--warm);
   content: "";
   transition: width 180ms ease;
 }
@@ -146,7 +188,8 @@ button {
 }
 
 .site-nav > a:not(.nav-cta):hover {
-  color: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
 }
 
 .nav-cta,
@@ -163,18 +206,28 @@ button {
 }
 
 .nav-cta {
-  min-height: 50px;
-  margin-left: 6px;
-  padding: 12px 20px;
-  background: var(--ink);
-  color: white;
-  box-shadow: 0 8px 18px rgba(16, 40, 32, 0.16);
+  min-height: 48px;
+  margin-left: 14px;
+  padding: 12px 19px;
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--pantry-brown-deep);
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 48, 37, 0.08),
+    0 7px 16px rgba(74, 48, 37, 0.2);
 }
 
-.nav-cta:hover,
 .primary-button:hover,
 .lime-button:hover {
   transform: translateY(-2px);
+}
+
+.nav-cta:hover {
+  background: var(--pantry-oat);
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 48, 37, 0.08),
+    0 10px 20px rgba(74, 48, 37, 0.26);
+  transform: translateY(-1px);
 }
 
 .menu-button {
@@ -183,8 +236,8 @@ button {
   height: 44px;
   cursor: pointer;
   border: 0;
-  border-radius: 50%;
-  background: var(--ink);
+  border-radius: 12px;
+  background: var(--pantry-oat);
 }
 
 .menu-button span {
@@ -192,7 +245,7 @@ button {
   width: 18px;
   height: 2px;
   margin: 5px auto;
-  background: white;
+  background: var(--pantry-brown-deep);
   transition:
     transform 180ms ease,
     opacity 180ms ease;
@@ -1727,7 +1780,7 @@ footer {
     width: calc(100% - 24px);
     min-height: 64px;
     margin-top: 10px;
-    padding: 7px 8px 7px 14px;
+    padding: 7px 8px 7px 9px;
     border-radius: 19px;
   }
 
@@ -1746,10 +1799,10 @@ footer {
     align-items: stretch;
     justify-content: flex-start;
     gap: 22px;
-    border: 1px solid rgba(24, 53, 45, 0.1);
+    border: 1px solid rgba(255, 253, 247, 0.15);
     border-radius: 19px;
-    background: rgba(255, 253, 247, 0.98);
-    box-shadow: 0 20px 45px rgba(16, 40, 32, 0.14);
+    background: rgba(111, 78, 55, 0.98);
+    box-shadow: 0 20px 45px rgba(74, 48, 37, 0.24);
     backdrop-filter: blur(20px);
   }
 
