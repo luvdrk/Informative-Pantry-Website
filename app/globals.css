@@ -789,6 +789,8 @@ h2 em {
 
 .problem-section,
 .features-section {
+  min-height: 100vh;
+  min-height: 100svh;
   padding-block: 125px;
 }
 
@@ -897,6 +899,8 @@ h2 em {
 }
 
 .steps-section {
+  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   padding-block: 120px;
   background: var(--deep);
@@ -1137,7 +1141,8 @@ h2 em {
 .vision-section {
   position: relative;
   display: grid;
-  min-height: 760px;
+  min-height: max(760px, 100vh);
+  min-height: max(760px, 100svh);
   overflow: hidden;
   padding: 130px max(24px, calc((100vw - 1180px) / 2));
   grid-template-columns: 1fr 0.8fr;
@@ -1281,6 +1286,8 @@ h2 em {
 
 .contact-section {
   display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
   grid-template-columns: 1fr 0.8fr;
   align-items: center;
   gap: 80px;
