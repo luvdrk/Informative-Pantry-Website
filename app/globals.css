@@ -1243,7 +1243,7 @@ footer {
 }
 
 .site-intro-ready .phone-card {
-  animation: phoneArrive 1050ms 310ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: phoneArrive 1100ms 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .phone-top,
@@ -1252,65 +1252,70 @@ footer {
 .site-intro-ready .scan-card,
 .site-intro-ready .app-section-title,
 .site-intro-ready .food-card,
+.site-intro-ready .phone-nav,
 .site-intro-ready .phone-nav > span {
   opacity: 0;
   animation: phoneContentPop 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .phone-top {
-  animation-delay: 720ms;
+  animation-delay: 1350ms;
 }
 
 .site-intro-ready .app-heading {
-  animation-delay: 790ms;
+  animation-delay: 1600ms;
 }
 
 .site-intro-ready .freshness-card {
-  animation-delay: 900ms;
+  animation-delay: 1850ms;
 }
 
 .site-intro-ready .scan-card {
-  animation-delay: 1010ms;
+  animation-delay: 2150ms;
 }
 
 .site-intro-ready .app-section-title {
-  animation-delay: 1110ms;
+  animation-delay: 2400ms;
 }
 
 .site-intro-ready .food-card:nth-child(1) {
-  animation-delay: 1190ms;
+  animation-delay: 2620ms;
 }
 
 .site-intro-ready .food-card:nth-child(2) {
-  animation-delay: 1270ms;
+  animation-delay: 2840ms;
+}
+
+.site-intro-ready .phone-nav {
+  animation-delay: 3070ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(1) {
-  animation-delay: 1320ms;
+  animation-delay: 3200ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(2) {
-  animation-delay: 1380ms;
+  animation-delay: 3330ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(3) {
-  animation-delay: 1440ms;
+  animation-delay: 3460ms;
 }
 
 .site-intro-ready .phone-nav > span:nth-child(4) {
-  animation-delay: 1500ms;
+  animation-delay: 3590ms;
 }
 
 .site-intro-ready .floating-recipe {
-  animation: recipeCardSpring 820ms 1230ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+  animation: recipeCardSpring 760ms 3950ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
 }
 
 .site-intro-ready .floating-saved {
-  animation: savedCardSpring 820ms 1370ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
+  animation: savedCardSpring 760ms 4650ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
 }
 
 .site-intro-ready .concept-label {
-  animation: softFade 600ms 1600ms ease both;
+  animation: softFade 600ms 5150ms ease both;
 }
 
 .site-intro-ready .orbit-one {
@@ -1322,23 +1327,23 @@ footer {
 }
 
 .site-intro-ready .health-ring {
-  animation: ringWake 900ms 1050ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ringWake 900ms 2000ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .site-intro-ready .scan-icon {
-  animation: scanPulse 2.8s 1750ms ease-in-out infinite;
+  animation: scanPulse 2.8s 2750ms ease-in-out infinite;
 }
 
 .site-intro-ready .avatar {
-  animation: gentleFloat 3.6s 1700ms ease-in-out infinite;
+  animation: gentleFloat 3.6s 2300ms ease-in-out infinite;
 }
 
 .site-intro-ready .food-card:nth-child(1) .food-emoji {
-  animation: ingredientFloat 3.8s 1750ms ease-in-out infinite;
+  animation: ingredientFloat 3.8s 3450ms ease-in-out infinite;
 }
 
 .site-intro-ready .food-card:nth-child(2) .food-emoji {
-  animation: ingredientFloat 4.2s 1950ms ease-in-out infinite reverse;
+  animation: ingredientFloat 4.2s 3650ms ease-in-out infinite reverse;
 }
 
 /* Scroll-led storytelling */
@@ -1484,14 +1489,12 @@ footer {
 @keyframes phoneArrive {
   0% {
     opacity: 0;
-    transform: translateY(95px) rotate(-5deg) scale(0.88);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-8px) rotate(3.5deg) scale(1.015);
+    filter: blur(5px);
+    transform: translateY(42px) rotate(-1deg) scale(0.96);
   }
   100% {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0) rotate(2deg) scale(1);
   }
 }
@@ -1514,11 +1517,15 @@ footer {
 @keyframes recipeCardSpring {
   0% {
     opacity: 0;
-    transform: translate(70px, 16px) rotate(10deg) scale(0.65);
+    transform: translate(16px, 10px) rotate(8deg) scale(0.15);
   }
-  70% {
+  62% {
     opacity: 1;
-    transform: translate(-5px, -2px) rotate(1deg) scale(1.04);
+    transform: translate(-3px, -2px) rotate(1deg) scale(1.13);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(1px, 1px) rotate(4deg) scale(0.97);
   }
   100% {
     opacity: 1;
@@ -1529,11 +1536,15 @@ footer {
 @keyframes savedCardSpring {
   0% {
     opacity: 0;
-    transform: translate(-70px, 18px) rotate(-12deg) scale(0.65);
+    transform: translate(-16px, 10px) rotate(-10deg) scale(0.15);
   }
-  70% {
+  62% {
     opacity: 1;
-    transform: translate(5px, -2px) rotate(-2deg) scale(1.04);
+    transform: translate(3px, -2px) rotate(-2deg) scale(1.13);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(-1px, 1px) rotate(-5deg) scale(0.97);
   }
   100% {
     opacity: 1;
@@ -1903,6 +1914,7 @@ footer {
   .site-intro-ready .scan-card,
   .site-intro-ready .app-section-title,
   .site-intro-ready .food-card,
+  .site-intro-ready .phone-nav,
   .site-intro-ready .phone-nav > span,
   .scroll-reveal,
   .stagger-group > * {

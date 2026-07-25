@@ -87,7 +87,7 @@ export default function Home() {
         if (progress < 1) scoreFrame = requestAnimationFrame(countScore);
       };
       scoreFrame = requestAnimationFrame(countScore);
-    }, 900);
+    }, 1850);
 
     const revealItems = document.querySelectorAll<HTMLElement>(".scroll-reveal");
     const revealObserver = new IntersectionObserver(
