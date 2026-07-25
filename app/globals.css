@@ -52,36 +52,33 @@ button {
 .site-header {
   position: sticky;
   z-index: 50;
-  top: 10px;
+  top: 16px;
   display: flex;
-  width: min(1060px, calc(100% - 32px));
-  height: 64px;
-  margin: 10px auto 0;
+  width: min(1180px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 16px auto 0;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 9px;
-  border: 1px solid rgba(255, 253, 247, 0.1);
-  border-radius: 20px;
-  background: linear-gradient(
-    180deg,
-    rgba(108, 73, 51, 0.99) 0%,
-    rgba(82, 52, 34, 0.99) 100%
-  );
+  padding: 10px 11px 10px 17px;
+  border: 1px solid rgba(104, 70, 48, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 251, 244, 0.92);
   box-shadow:
-    0 14px 30px rgba(82, 52, 34, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
+    0 20px 50px rgba(82, 52, 34, 0.1),
+    0 2px 8px rgba(82, 52, 34, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(22px);
 }
 
 .brand {
   display: inline-flex;
-  min-width: 166px;
+  min-width: 172px;
   align-items: center;
-  gap: 10px;
-  color: var(--paper);
-  font-size: 17px;
+  gap: 11px;
+  color: var(--pantry-brown-deep);
+  font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.8px;
+  letter-spacing: -1.2px;
 }
 
 .brand-mark {
@@ -126,43 +123,39 @@ button {
 }
 
 .site-header .brand-mark {
-  width: 38px;
-  height: 38px;
-  flex-basis: 38px;
-  border: 1px solid rgba(255, 253, 247, 0.32);
-  border-radius: 11px;
-  background: linear-gradient(
-    180deg,
-    #f8dfbe 0%,
-    var(--pantry-caramel) 100%
-  );
+  width: 42px;
+  height: 42px;
+  flex-basis: 42px;
+  border: 4px solid #ead7c2;
+  border-radius: 50%;
+  background: var(--pantry-brown);
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.72),
-    0 5px 11px rgba(53, 31, 18, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 13px rgba(82, 52, 34, 0.18);
 }
 
 .site-header .brand-leaf {
-  left: 11px;
-  width: 9px;
-  height: 15px;
-  background: var(--paper);
+  left: 10px;
+  width: 8px;
+  height: 13px;
+  background: var(--pantry-oat);
 }
 
 .site-header .brand-leaf-one {
-  top: 6px;
+  top: 7px;
 }
 
 .site-header .brand-leaf-two {
   top: 13px;
-  left: 18px;
+  left: 16px;
 }
 
 .site-header .brand-dot {
-  right: 8px;
-  bottom: 8px;
+  right: 7px;
+  bottom: 7px;
   width: 4px;
   height: 4px;
-  background: var(--paper);
+  background: var(--pantry-caramel);
 }
 
 .site-nav {
@@ -170,29 +163,40 @@ button {
   flex: 1;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 18px;
-  font-size: 13px;
+  gap: 22px;
+  font-size: 12px;
   font-weight: 700;
 }
 
 .nav-links {
   display: flex;
+  width: fit-content;
+  margin-inline: auto;
   align-items: center;
   justify-content: center;
-  gap: clamp(21px, 2.7vw, 36px);
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid rgba(104, 70, 48, 0.08);
+  border-radius: 999px;
+  background: #f1e6d7;
 }
 
 .nav-links a {
   position: relative;
-  color: rgba(246, 237, 223, 0.68);
+  padding: 10px clamp(13px, 1.7vw, 21px);
+  border-radius: 999px;
+  color: #725c4b;
   transition:
+    background 180ms ease,
     color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .nav-links a:hover {
-  color: var(--paper);
-  transform: translateY(-1px);
+  background: rgba(255, 253, 247, 0.96);
+  color: var(--pantry-brown-deep);
+  box-shadow: 0 5px 12px rgba(82, 52, 34, 0.08);
 }
 
 .nav-cta,
@@ -209,15 +213,25 @@ button {
 }
 
 .nav-cta {
-  height: 46px;
-  min-width: 144px;
-  padding: 0 17px;
-  border-radius: 11px;
-  background: var(--pantry-oat);
-  color: var(--pantry-brown-deep);
-  box-shadow:
-    inset 0 0 0 1px rgba(82, 52, 34, 0.08),
-    0 4px 10px rgba(48, 27, 16, 0.18);
+  height: 54px;
+  min-width: 166px;
+  padding: 0 8px 0 19px;
+  justify-content: space-between;
+  border-radius: 999px;
+  background: var(--pantry-brown);
+  color: var(--paper);
+  box-shadow: 0 10px 23px rgba(82, 52, 34, 0.2);
+}
+
+.nav-cta span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--pantry-caramel);
+  color: var(--paper);
+  font-size: 16px;
 }
 
 .primary-button:hover,
@@ -226,11 +240,9 @@ button {
 }
 
 .nav-cta:hover {
-  background: #fffaf3;
-  box-shadow:
-    inset 0 0 0 1px rgba(82, 52, 34, 0.08),
-    0 7px 15px rgba(48, 27, 16, 0.22);
-  transform: translateY(-1px);
+  background: var(--pantry-brown-deep);
+  box-shadow: 0 13px 28px rgba(82, 52, 34, 0.24);
+  transform: translateY(-2px);
 }
 
 .menu-button {
@@ -239,8 +251,8 @@ button {
   height: 44px;
   cursor: pointer;
   border: 0;
-  border-radius: 12px;
-  background: var(--pantry-oat);
+  border-radius: 50%;
+  background: var(--pantry-brown);
 }
 
 .menu-button span {
@@ -248,7 +260,7 @@ button {
   width: 18px;
   height: 2px;
   margin: 5px auto;
-  background: var(--pantry-brown-deep);
+  background: var(--paper);
   transition:
     transform 180ms ease,
     opacity 180ms ease;
@@ -1779,12 +1791,12 @@ footer {
   }
 
   .site-header {
-    top: 10px;
-    width: calc(100% - 24px);
-    height: 60px;
-    margin-top: 10px;
-    padding: 7px 8px;
-    border-radius: 18px;
+    top: 12px;
+    width: calc(100% - 20px);
+    min-height: 64px;
+    margin-top: 12px;
+    padding: 7px 8px 7px 13px;
+    border-radius: 999px;
   }
 
   .menu-button {
@@ -1797,17 +1809,13 @@ footer {
     right: 0;
     left: 0;
     display: none;
-    padding: 10px;
+    padding: 12px;
     grid-template-columns: 1fr;
-    gap: 10px;
-    border: 1px solid rgba(255, 253, 247, 0.15);
-    border-radius: 18px;
-    background: linear-gradient(
-      180deg,
-      rgba(108, 73, 51, 0.99) 0%,
-      rgba(82, 52, 34, 0.99) 100%
-    );
-    box-shadow: 0 20px 45px rgba(82, 52, 34, 0.25);
+    gap: 12px;
+    border: 1px solid rgba(104, 70, 48, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 251, 244, 0.98);
+    box-shadow: 0 22px 48px rgba(82, 52, 34, 0.16);
     backdrop-filter: blur(20px);
   }
 
@@ -1816,14 +1824,16 @@ footer {
   }
 
   .nav-links {
-    padding: 10px 12px;
+    width: 100%;
+    padding: 6px;
     flex-direction: column;
     align-items: stretch;
-    gap: 2px;
+    border-radius: 18px;
   }
 
   .nav-links a {
-    padding: 12px 4px;
+    padding: 13px 12px;
+    border-radius: 13px;
   }
 
   .nav-cta {
