@@ -113,6 +113,68 @@ export default function Home() {
     };
   }, [animationCycle]);
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (reducedMotion.matches) return;
+
+    const sectionTargets = Array.from(
+      document.querySelectorAll<HTMLElement>("section[id], footer"),
+    );
+    let scrollLocked = false;
+    let unlockTimer = 0;
+
+    const findCurrentSection = () => {
+      const snapLine = 110;
+
+      return sectionTargets.reduce((closestIndex, section, index) => {
+        const currentDistance = Math.abs(
+          section.getBoundingClientRect().top - snapLine,
+        );
+        const closestDistance = Math.abs(
+          sectionTargets[closestIndex].getBoundingClientRect().top - snapLine,
+        );
+
+        return currentDistance < closestDistance ? index : closestIndex;
+      }, 0);
+    };
+
+    const handleSectionWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaY) < 8) return;
+
+      event.preventDefault();
+      if (scrollLocked) return;
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const currentSection = findCurrentSection();
+      const nextSection = Math.min(
+        sectionTargets.length - 1,
+        Math.max(0, currentSection + direction),
+      );
+
+      if (nextSection === currentSection) return;
+
+      scrollLocked = true;
+      sectionTargets[nextSection].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      unlockTimer = window.setTimeout(() => {
+        scrollLocked = false;
+      }, 900);
+    };
+
+    window.addEventListener("wheel", handleSectionWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleSectionWheel);
+      window.clearTimeout(unlockTimer);
+    };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
   const replayIntro = () => {
     setIntroReady(false);
