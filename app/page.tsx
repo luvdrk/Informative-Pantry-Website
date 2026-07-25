@@ -245,9 +245,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let lastScrollPosition = window.scrollY;
-    let directionTravel = 0;
-    let lastDirection = 0;
     let headerFrame = 0;
 
     const updateHeaderVisibility = () => {
@@ -255,30 +252,15 @@ export default function Home() {
       const currentScrollPosition = window.scrollY;
       const maximumScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      const delta = currentScrollPosition - lastScrollPosition;
-      const direction = Math.sign(delta);
+      const isAwayFromTop = currentScrollPosition > 8;
 
       setScrollProgress(
         maximumScroll > 0
           ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
           : 0,
       );
-
-      if (currentScrollPosition <= 40) {
-        setHeaderHidden(false);
-        directionTravel = 0;
-      } else if (direction !== 0) {
-        if (direction !== lastDirection) directionTravel = 0;
-        directionTravel += Math.abs(delta);
-
-        if (directionTravel >= 18) {
-          setHeaderHidden(direction > 0);
-          directionTravel = 0;
-        }
-      }
-
-      if (direction !== 0) lastDirection = direction;
-      lastScrollPosition = currentScrollPosition;
+      setHeaderHidden(isAwayFromTop);
+      if (isAwayFromTop) setMenuOpen(false);
     };
 
     const scheduleHeaderUpdate = () => {
@@ -309,11 +291,7 @@ export default function Home() {
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
       <header
-        className={
-          headerHidden && !menuOpen
-            ? "site-header header-hidden"
-            : "site-header"
-        }
+        className={headerHidden ? "site-header header-hidden" : "site-header"}
       >
         <a className="brand" href="#home" aria-label="Panzi home">
           <BrandMark />

@@ -129,8 +129,8 @@ button {
   will-change: transform, opacity;
   backdrop-filter: blur(22px);
   transition:
-    opacity 240ms ease,
-    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 300ms ease,
+    transform 460ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .site-header.header-hidden {
