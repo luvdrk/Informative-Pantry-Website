@@ -416,6 +416,29 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="contact-section section-shell" id="contact">
+        <div className="contact-copy scroll-reveal reveal-left">
+          <span className="section-number">05 / CONTACT</span>
+          <h2>
+            Let’s make your pantry
+            <br />
+            <em>work harder for you.</em>
+          </h2>
+          <p>
+            Have a question, an idea, or want to follow Panzi’s progress? We’d
+            love to hear from you.
+          </p>
+        </div>
+        <div className="contact-card scroll-reveal reveal-scale">
+          <span className="contact-label">GET IN TOUCH</span>
+          <a href="mailto:hello@panzi.app">hello@panzi.app</a>
+          <p>We’ll get back to you as soon as we can.</p>
+          <a className="contact-button" href="mailto:hello@panzi.app">
+            Send an email <span>→</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         <div className="footer-main section-shell">
           <div>
@@ -429,6 +452,7 @@ export default function Home() {
             <a href="#overview">About</a>
             <a href="#how-it-works">How it works</a>
             <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
           </div>
           <div className="footer-status">
             <span className="pulse-dot" />
@@ -440,7 +464,6 @@ export default function Home() {
         </div>
         <div className="footer-bottom section-shell">
           <span>© 2026 Panzi. Smart pantry system concept.</span>
-          <span>Powered by thoughtful AI.</span>
         </div>
       </footer>
     </main>
