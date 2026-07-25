@@ -58,16 +58,6 @@ const steps = [
   },
 ];
 
-const scrollSections = [
-  { id: "home", label: "Home" },
-  { id: "overview", label: "The problem" },
-  { id: "how-it-works", label: "How it works" },
-  { id: "features", label: "Features" },
-  { id: "vision", label: "Vision" },
-  { id: "contact", label: "Contact" },
-  { id: "footer", label: "Footer" },
-];
-
 function BrandMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
@@ -83,8 +73,8 @@ export default function Home() {
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
   const [animationCycle, setAnimationCycle] = useState(0);
-  const [activeSection, setActiveSection] = useState("home");
   const [headerHidden, setHeaderHidden] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -255,51 +245,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const targets = scrollSections
-      .map(({ id }) => document.getElementById(id))
-      .filter((target): target is HTMLElement => Boolean(target));
-    let activeFrame = 0;
-
-    const updateActiveSection = () => {
-      activeFrame = 0;
-      const focusLine = window.innerHeight * 0.45;
-      const current =
-        targets.find((target) => {
-          const bounds = target.getBoundingClientRect();
-          return bounds.top <= focusLine && bounds.bottom > focusLine;
-        }) ??
-        targets.reduce((closest, target) => {
-          const targetDistance = Math.abs(
-            target.getBoundingClientRect().top - focusLine,
-          );
-          const closestDistance = Math.abs(
-            closest.getBoundingClientRect().top - focusLine,
-          );
-          return targetDistance < closestDistance ? target : closest;
-        }, targets[0]);
-
-      if (current) setActiveSection(current.id);
-    };
-
-    const scheduleActiveSectionUpdate = () => {
-      if (activeFrame) return;
-      activeFrame = requestAnimationFrame(updateActiveSection);
-    };
-
-    updateActiveSection();
-    window.addEventListener("scroll", scheduleActiveSectionUpdate, {
-      passive: true,
-    });
-    window.addEventListener("resize", scheduleActiveSectionUpdate);
-
-    return () => {
-      window.removeEventListener("scroll", scheduleActiveSectionUpdate);
-      window.removeEventListener("resize", scheduleActiveSectionUpdate);
-      cancelAnimationFrame(activeFrame);
-    };
-  }, []);
-
-  useEffect(() => {
     let lastScrollPosition = window.scrollY;
     let directionTravel = 0;
     let lastDirection = 0;
@@ -308,8 +253,16 @@ export default function Home() {
     const updateHeaderVisibility = () => {
       headerFrame = 0;
       const currentScrollPosition = window.scrollY;
+      const maximumScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
       const delta = currentScrollPosition - lastScrollPosition;
       const direction = Math.sign(delta);
+
+      setScrollProgress(
+        maximumScroll > 0
+          ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
+          : 0,
+      );
 
       if (currentScrollPosition <= 40) {
         setHeaderHidden(false);
@@ -333,10 +286,13 @@ export default function Home() {
       headerFrame = requestAnimationFrame(updateHeaderVisibility);
     };
 
+    updateHeaderVisibility();
     window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
+    window.addEventListener("resize", scheduleHeaderUpdate);
 
     return () => {
       window.removeEventListener("scroll", scheduleHeaderUpdate);
+      window.removeEventListener("resize", scheduleHeaderUpdate);
       cancelAnimationFrame(headerFrame);
     };
   }, []);
@@ -349,10 +305,6 @@ export default function Home() {
       setAnimationCycle((cycle) => cycle + 1);
     }, 80);
   };
-  const activeSectionIndex = Math.max(
-    0,
-    scrollSections.findIndex(({ id }) => id === activeSection),
-  );
 
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
@@ -400,33 +352,11 @@ export default function Home() {
         </nav>
       </header>
 
-      <aside className="scroll-indicator" aria-label="Page section navigation">
-        <span className="scroll-indicator-count" aria-hidden="true">
-          {String(activeSectionIndex + 1).padStart(2, "0")}
-        </span>
-        <nav className="scroll-indicator-links">
-          {scrollSections.map((section) => {
-            const isActive = activeSection === section.id;
-
-            return (
-              <a
-                className={
-                  isActive
-                    ? "scroll-indicator-link is-active"
-                    : "scroll-indicator-link"
-                }
-                href={`#${section.id}`}
-                aria-label={`Go to ${section.label}`}
-                aria-current={isActive ? "page" : undefined}
-                data-label={section.label}
-                key={section.id}
-              >
-                <span aria-hidden="true" />
-              </a>
-            );
-          })}
-        </nav>
-      </aside>
+      <div className="scroll-position-indicator" aria-hidden="true">
+        <span
+          style={{ transform: `translateY(${scrollProgress * 108}px)` }}
+        />
+      </div>
 
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
