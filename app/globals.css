@@ -47,16 +47,21 @@ button {
 .site-header {
   position: sticky;
   z-index: 50;
-  top: 0;
+  top: 14px;
   display: flex;
-  width: 100%;
-  min-height: 80px;
+  width: min(1180px, calc(100% - 48px));
+  min-height: 68px;
+  margin: 14px auto 0;
   align-items: center;
   justify-content: space-between;
-  padding: 0 max(24px, calc((100vw - 1180px) / 2));
-  border-bottom: 1px solid rgba(24, 53, 45, 0.08);
-  background: rgba(247, 244, 234, 0.88);
-  backdrop-filter: blur(18px);
+  padding: 8px 10px 8px 18px;
+  border: 1px solid rgba(24, 53, 45, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 253, 247, 0.94);
+  box-shadow:
+    0 16px 40px rgba(16, 40, 32, 0.08),
+    0 2px 6px rgba(16, 40, 32, 0.05);
+  backdrop-filter: blur(20px);
 }
 
 .brand {
@@ -111,7 +116,9 @@ button {
 
 .site-nav {
   display: flex;
+  flex: 1;
   align-items: center;
+  justify-content: flex-end;
   gap: 34px;
   font-size: 14px;
   font-weight: 700;
@@ -119,6 +126,8 @@ button {
 
 .site-nav > a:not(.nav-cta) {
   position: relative;
+  color: #42584f;
+  transition: color 180ms ease;
 }
 
 .site-nav > a:not(.nav-cta)::after {
@@ -136,6 +145,10 @@ button {
   width: 100%;
 }
 
+.site-nav > a:not(.nav-cta):hover {
+  color: var(--ink);
+}
+
 .nav-cta,
 .primary-button,
 .lime-button {
@@ -150,9 +163,12 @@ button {
 }
 
 .nav-cta {
-  padding: 12px 18px;
+  min-height: 50px;
+  margin-left: 6px;
+  padding: 12px 20px;
   background: var(--ink);
   color: white;
+  box-shadow: 0 8px 18px rgba(16, 40, 32, 0.16);
 }
 
 .nav-cta:hover,
@@ -177,11 +193,22 @@ button {
   height: 2px;
   margin: 5px auto;
   background: white;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.menu-button[aria-expanded="true"] span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
 }
 
 .hero {
   display: grid;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 96px);
   grid-template-columns: 1.02fr 0.98fr;
   align-items: center;
   gap: 54px;
@@ -1696,8 +1723,12 @@ footer {
   }
 
   .site-header {
-    min-height: 68px;
-    padding-inline: 16px;
+    top: 10px;
+    width: calc(100% - 24px);
+    min-height: 64px;
+    margin-top: 10px;
+    padding: 7px 8px 7px 14px;
+    border-radius: 19px;
   }
 
   .menu-button {
@@ -1706,18 +1737,20 @@ footer {
 
   .site-nav {
     position: absolute;
-    top: 68px;
-    right: 16px;
-    left: 16px;
+    top: calc(100% + 10px);
+    right: 0;
+    left: 0;
     display: none;
-    padding: 26px;
+    padding: 22px;
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
     gap: 22px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    background: var(--paper);
+    border: 1px solid rgba(24, 53, 45, 0.1);
+    border-radius: 19px;
+    background: rgba(255, 253, 247, 0.98);
     box-shadow: 0 20px 45px rgba(16, 40, 32, 0.14);
+    backdrop-filter: blur(20px);
   }
 
   .site-nav.nav-open {
@@ -1726,6 +1759,7 @@ footer {
 
   .nav-cta {
     justify-content: space-between;
+    margin-left: 0;
   }
 
   .hero {
