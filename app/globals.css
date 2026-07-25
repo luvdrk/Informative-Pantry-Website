@@ -302,7 +302,8 @@ button {
 
 .hero {
   display: grid;
-  min-height: calc(100vh - 96px);
+  min-height: 100vh;
+  min-height: 100svh;
   grid-template-columns: 1.02fr 0.98fr;
   align-items: center;
   gap: 54px;
@@ -1356,6 +1357,11 @@ h2 em {
 }
 
 footer {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
   background: var(--deep);
   color: white;
 }
