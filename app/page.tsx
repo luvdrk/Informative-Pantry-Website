@@ -118,12 +118,12 @@ export default function Home() {
       "(prefers-reduced-motion: reduce)",
     );
 
-    if (reducedMotion.matches) return;
-
     const sectionTargets = Array.from(
       document.querySelectorAll<HTMLElement>("section[id], footer"),
     );
     let scrollLocked = false;
+    let wheelAccumulator = 0;
+    let accumulatorTimer = 0;
     let unlockTimer = 0;
 
     const findCurrentSection = () => {
@@ -142,12 +142,34 @@ export default function Home() {
     };
 
     const handleSectionWheel = (event: WheelEvent) => {
-      if (event.ctrlKey || Math.abs(event.deltaY) < 8) return;
+      if (
+        event.ctrlKey ||
+        Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
+        event.deltaY === 0
+      ) {
+        return;
+      }
 
       event.preventDefault();
       if (scrollLocked) return;
 
-      const direction = event.deltaY > 0 ? 1 : -1;
+      const deltaMultiplier =
+        event.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? 16
+          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? window.innerHeight
+            : 1;
+
+      wheelAccumulator += event.deltaY * deltaMultiplier;
+      window.clearTimeout(accumulatorTimer);
+      accumulatorTimer = window.setTimeout(() => {
+        wheelAccumulator = 0;
+      }, 180);
+
+      if (Math.abs(wheelAccumulator) < 10) return;
+
+      const direction = wheelAccumulator > 0 ? 1 : -1;
+      wheelAccumulator = 0;
       const currentSection = findCurrentSection();
       const nextSection = Math.min(
         sectionTargets.length - 1,
@@ -158,19 +180,20 @@ export default function Home() {
 
       scrollLocked = true;
       sectionTargets[nextSection].scrollIntoView({
-        behavior: "smooth",
+        behavior: reducedMotion.matches ? "auto" : "smooth",
         block: "start",
       });
 
       unlockTimer = window.setTimeout(() => {
         scrollLocked = false;
-      }, 900);
+      }, reducedMotion.matches ? 180 : 900);
     };
 
     window.addEventListener("wheel", handleSectionWheel, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", handleSectionWheel);
+      window.clearTimeout(accumulatorTimer);
       window.clearTimeout(unlockTimer);
     };
   }, []);
