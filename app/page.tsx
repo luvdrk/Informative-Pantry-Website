@@ -199,8 +199,10 @@ export default function Home() {
         return;
       }
 
-      event.preventDefault();
-      if (scrollLocked) return;
+      if (scrollLocked) {
+        event.preventDefault();
+        return;
+      }
 
       const deltaMultiplier =
         event.deltaMode === WheelEvent.DOM_DELTA_LINE
@@ -208,15 +210,24 @@ export default function Home() {
           : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
             ? window.innerHeight
             : 1;
+      const normalizedDelta = event.deltaY * deltaMultiplier;
 
-      wheelAccumulator += event.deltaY * deltaMultiplier;
+      if (
+        wheelAccumulator !== 0 &&
+        Math.sign(normalizedDelta) !== Math.sign(wheelAccumulator)
+      ) {
+        wheelAccumulator = 0;
+      }
+
+      wheelAccumulator += normalizedDelta;
       window.clearTimeout(accumulatorTimer);
       accumulatorTimer = window.setTimeout(() => {
         wheelAccumulator = 0;
       }, 180);
 
-      if (Math.abs(wheelAccumulator) < 10) return;
+      if (Math.abs(wheelAccumulator) < 84) return;
 
+      event.preventDefault();
       const direction = wheelAccumulator > 0 ? 1 : -1;
       wheelAccumulator = 0;
       const currentSection = findCurrentSection();

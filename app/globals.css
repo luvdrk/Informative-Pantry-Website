@@ -25,7 +25,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 0;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
