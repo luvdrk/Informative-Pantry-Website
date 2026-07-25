@@ -125,7 +125,7 @@ export default function Home() {
     let previousSnapType = "";
 
     const findCurrentSection = () => {
-      const snapLine = 110;
+      const snapLine = 0;
 
       return sectionTargets.reduce((closestIndex, section, index) => {
         const currentDistance = Math.abs(
@@ -144,7 +144,7 @@ export default function Home() {
       const startPosition = window.scrollY;
       const targetPosition = Math.max(
         0,
-        startPosition + section.getBoundingClientRect().top - 110,
+        startPosition + section.getBoundingClientRect().top,
       );
       const distance = targetPosition - startPosition;
       const duration = 760;
