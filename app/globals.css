@@ -212,7 +212,17 @@ button {
     0 20px 50px rgba(82, 52, 34, 0.1),
     0 2px 8px rgba(82, 52, 34, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  will-change: transform, opacity;
   backdrop-filter: blur(22px);
+  transition:
+    opacity 240ms ease,
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header.header-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(calc(-100% - 34px));
 }
 
 .brand {
@@ -1535,7 +1545,7 @@ footer {
 }
 
 .site-intro-ready .site-header {
-  animation: headerArrive 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: headerArrive 620ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 
 .site-intro-ready .hero-copy > * {

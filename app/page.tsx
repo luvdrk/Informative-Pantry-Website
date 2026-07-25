@@ -84,6 +84,7 @@ export default function Home() {
   const [pantryScore, setPantryScore] = useState(0);
   const [animationCycle, setAnimationCycle] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
+  const [headerHidden, setHeaderHidden] = useState(false);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -298,6 +299,48 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    let lastScrollPosition = window.scrollY;
+    let directionTravel = 0;
+    let lastDirection = 0;
+    let headerFrame = 0;
+
+    const updateHeaderVisibility = () => {
+      headerFrame = 0;
+      const currentScrollPosition = window.scrollY;
+      const delta = currentScrollPosition - lastScrollPosition;
+      const direction = Math.sign(delta);
+
+      if (currentScrollPosition <= 40) {
+        setHeaderHidden(false);
+        directionTravel = 0;
+      } else if (direction !== 0) {
+        if (direction !== lastDirection) directionTravel = 0;
+        directionTravel += Math.abs(delta);
+
+        if (directionTravel >= 18) {
+          setHeaderHidden(direction > 0);
+          directionTravel = 0;
+        }
+      }
+
+      if (direction !== 0) lastDirection = direction;
+      lastScrollPosition = currentScrollPosition;
+    };
+
+    const scheduleHeaderUpdate = () => {
+      if (headerFrame) return;
+      headerFrame = requestAnimationFrame(updateHeaderVisibility);
+    };
+
+    window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", scheduleHeaderUpdate);
+      cancelAnimationFrame(headerFrame);
+    };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
   const replayIntro = () => {
     setIntroReady(false);
@@ -313,7 +356,13 @@ export default function Home() {
 
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
-      <header className="site-header">
+      <header
+        className={
+          headerHidden && !menuOpen
+            ? "site-header header-hidden"
+            : "site-header"
+        }
+      >
         <a className="brand" href="#home" aria-label="Panzi home">
           <BrandMark />
           <span>panzi</span>
