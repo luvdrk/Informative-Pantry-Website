@@ -32,6 +32,7 @@ test("renders the Panzi introduction page", async () => {
   assert.match(html, /Less waste\./);
   assert.match(html, /AI image recognition/);
   assert.match(html, /From grocery bag/);
-  assert.match(html, /In development/);
+  assert.match(html, /hello@panzi\.app/);
+  assert.doesNotMatch(html, /In development|PROJECT STATUS/i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
