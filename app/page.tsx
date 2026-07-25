@@ -142,15 +142,20 @@ export default function Home() {
         </button>
 
         <nav className={menuOpen ? "site-nav nav-open" : "site-nav"}>
-          <a href="#overview" onClick={closeMenu}>
-            About
-          </a>
-          <a href="#how-it-works" onClick={closeMenu}>
-            How it works
-          </a>
-          <a href="#features" onClick={closeMenu}>
-            Features
-          </a>
+          <div className="nav-links">
+            <a href="#features" onClick={closeMenu}>
+              Features
+            </a>
+            <a href="#how-it-works" onClick={closeMenu}>
+              How it works
+            </a>
+            <a href="#overview" onClick={closeMenu}>
+              About
+            </a>
+            <a href="#vision" onClick={closeMenu}>
+              Vision
+            </a>
+          </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
             Discover Panzi <span>↗</span>
           </a>
