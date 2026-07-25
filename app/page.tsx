@@ -114,17 +114,15 @@ export default function Home() {
   }, [animationCycle]);
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
-
     const sectionTargets = Array.from(
       document.querySelectorAll<HTMLElement>("section[id], footer"),
     );
     let scrollLocked = false;
     let wheelAccumulator = 0;
     let accumulatorTimer = 0;
+    let scrollFrame = 0;
     let unlockTimer = 0;
+    let previousSnapType = "";
 
     const findCurrentSection = () => {
       const snapLine = 110;
@@ -139,6 +137,46 @@ export default function Home() {
 
         return currentDistance < closestDistance ? index : closestIndex;
       }, 0);
+    };
+
+    const animateToSection = (section: HTMLElement) => {
+      const root = document.documentElement;
+      const startPosition = window.scrollY;
+      const targetPosition = Math.max(
+        0,
+        startPosition + section.getBoundingClientRect().top - 110,
+      );
+      const distance = targetPosition - startPosition;
+      const duration = 760;
+      let animationStart = 0;
+
+      previousSnapType = root.style.scrollSnapType;
+      root.style.scrollSnapType = "none";
+
+      const animateScroll = (time: number) => {
+        if (!animationStart) animationStart = time;
+
+        const progress = Math.min((time - animationStart) / duration, 1);
+        const eased =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        window.scrollTo(0, startPosition + distance * eased);
+
+        if (progress < 1) {
+          scrollFrame = requestAnimationFrame(animateScroll);
+          return;
+        }
+
+        window.scrollTo(0, targetPosition);
+        root.style.scrollSnapType = previousSnapType;
+        unlockTimer = window.setTimeout(() => {
+          scrollLocked = false;
+        }, 180);
+      };
+
+      scrollFrame = requestAnimationFrame(animateScroll);
     };
 
     const handleSectionWheel = (event: WheelEvent) => {
@@ -179,22 +217,17 @@ export default function Home() {
       if (nextSection === currentSection) return;
 
       scrollLocked = true;
-      sectionTargets[nextSection].scrollIntoView({
-        behavior: reducedMotion.matches ? "auto" : "smooth",
-        block: "start",
-      });
-
-      unlockTimer = window.setTimeout(() => {
-        scrollLocked = false;
-      }, reducedMotion.matches ? 180 : 900);
+      animateToSection(sectionTargets[nextSection]);
     };
 
     window.addEventListener("wheel", handleSectionWheel, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", handleSectionWheel);
+      cancelAnimationFrame(scrollFrame);
       window.clearTimeout(accumulatorTimer);
       window.clearTimeout(unlockTimer);
+      document.documentElement.style.scrollSnapType = previousSnapType;
     };
   }, []);
 
