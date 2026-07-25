@@ -25,6 +25,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 110px;
+  scroll-snap-type: y mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -50,6 +51,13 @@ body::-webkit-scrollbar {
 
 section[id] {
   scroll-margin-top: 110px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+footer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 a {
@@ -2136,6 +2144,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
   }
 
   *,
