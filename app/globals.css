@@ -265,6 +265,35 @@ h2 em {
   font-weight: 800;
 }
 
+.replay-button {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: #667a72;
+  font-size: 12px;
+  font-weight: 800;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.replay-button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.replay-button span {
+  color: var(--forest);
+  font-size: 17px;
+}
+
 .hero-proof {
   display: flex;
   flex-wrap: wrap;
@@ -1897,25 +1926,17 @@ footer {
   *,
   *::before,
   *::after {
-    animation: none !important;
     transition-duration: 0.01ms !important;
   }
 
-  .site-intro-pending .site-header,
-  .site-intro-pending .hero-copy > *,
-  .site-intro-pending .hero-visual::before,
-  .site-intro-pending .hero-visual::after,
-  .site-intro-pending .phone-card,
-  .site-intro-pending .floating-card,
-  .site-intro-pending .concept-label,
-  .site-intro-ready .phone-top,
-  .site-intro-ready .app-heading,
-  .site-intro-ready .freshness-card,
-  .site-intro-ready .scan-card,
-  .site-intro-ready .app-section-title,
-  .site-intro-ready .food-card,
-  .site-intro-ready .phone-nav,
-  .site-intro-ready .phone-nav > span,
+  .site-intro-ready .orbit-one,
+  .site-intro-ready .orbit-two,
+  .site-intro-ready .scan-icon,
+  .site-intro-ready .avatar,
+  .site-intro-ready .food-emoji {
+    animation-iteration-count: 1 !important;
+  }
+
   .scroll-reveal,
   .stagger-group > * {
     opacity: 1;

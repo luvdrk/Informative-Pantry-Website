@@ -72,6 +72,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
+  const [animationCycle, setAnimationCycle] = useState(0);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -110,9 +111,16 @@ export default function Home() {
       window.clearTimeout(scoreTimer);
       revealObserver.disconnect();
     };
-  }, []);
+  }, [animationCycle]);
 
   const closeMenu = () => setMenuOpen(false);
+  const replayIntro = () => {
+    setIntroReady(false);
+    setPantryScore(0);
+    window.setTimeout(() => {
+      setAnimationCycle((cycle) => cycle + 1);
+    }, 80);
+  };
 
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
@@ -171,6 +179,9 @@ export default function Home() {
             <a className="text-link" href="#how-it-works">
               See how it works <span>↓</span>
             </a>
+            <button className="replay-button" type="button" onClick={replayIntro}>
+              <span aria-hidden="true">↻</span> Replay phone intro
+            </button>
           </div>
           <div className="hero-proof" aria-label="Panzi key benefits">
             <span>AI-powered</span>
