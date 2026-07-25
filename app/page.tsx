@@ -58,6 +58,16 @@ const steps = [
   },
 ];
 
+const scrollSections = [
+  { id: "home", label: "Home" },
+  { id: "overview", label: "The problem" },
+  { id: "how-it-works", label: "How it works" },
+  { id: "features", label: "Features" },
+  { id: "vision", label: "Vision" },
+  { id: "contact", label: "Contact" },
+  { id: "footer", label: "Footer" },
+];
+
 function BrandMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
@@ -73,6 +83,7 @@ export default function Home() {
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
   const [animationCycle, setAnimationCycle] = useState(0);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -231,6 +242,51 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const targets = scrollSections
+      .map(({ id }) => document.getElementById(id))
+      .filter((target): target is HTMLElement => Boolean(target));
+    let activeFrame = 0;
+
+    const updateActiveSection = () => {
+      activeFrame = 0;
+      const focusLine = window.innerHeight * 0.45;
+      const current =
+        targets.find((target) => {
+          const bounds = target.getBoundingClientRect();
+          return bounds.top <= focusLine && bounds.bottom > focusLine;
+        }) ??
+        targets.reduce((closest, target) => {
+          const targetDistance = Math.abs(
+            target.getBoundingClientRect().top - focusLine,
+          );
+          const closestDistance = Math.abs(
+            closest.getBoundingClientRect().top - focusLine,
+          );
+          return targetDistance < closestDistance ? target : closest;
+        }, targets[0]);
+
+      if (current) setActiveSection(current.id);
+    };
+
+    const scheduleActiveSectionUpdate = () => {
+      if (activeFrame) return;
+      activeFrame = requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", scheduleActiveSectionUpdate, {
+      passive: true,
+    });
+    window.addEventListener("resize", scheduleActiveSectionUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleActiveSectionUpdate);
+      window.removeEventListener("resize", scheduleActiveSectionUpdate);
+      cancelAnimationFrame(activeFrame);
+    };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
   const replayIntro = () => {
     setIntroReady(false);
@@ -239,6 +295,10 @@ export default function Home() {
       setAnimationCycle((cycle) => cycle + 1);
     }, 80);
   };
+  const activeSectionIndex = Math.max(
+    0,
+    scrollSections.findIndex(({ id }) => id === activeSection),
+  );
 
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
@@ -279,6 +339,34 @@ export default function Home() {
           </a>
         </nav>
       </header>
+
+      <aside className="scroll-indicator" aria-label="Page section navigation">
+        <span className="scroll-indicator-count" aria-hidden="true">
+          {String(activeSectionIndex + 1).padStart(2, "0")}
+        </span>
+        <nav className="scroll-indicator-links">
+          {scrollSections.map((section) => {
+            const isActive = activeSection === section.id;
+
+            return (
+              <a
+                className={
+                  isActive
+                    ? "scroll-indicator-link is-active"
+                    : "scroll-indicator-link"
+                }
+                href={`#${section.id}`}
+                aria-label={`Go to ${section.label}`}
+                aria-current={isActive ? "page" : undefined}
+                data-label={section.label}
+                key={section.id}
+              >
+                <span aria-hidden="true" />
+              </a>
+            );
+          })}
+        </nav>
+      </aside>
 
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
@@ -562,7 +650,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
+      <footer id="footer">
         <div className="footer-main section-shell">
           <div>
             <a className="brand footer-brand" href="#home">
