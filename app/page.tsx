@@ -292,15 +292,10 @@ export default function Home() {
     }, 80);
   };
   const scrollBackToTop = () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      window.scrollTo(0, 0);
-      return;
-    }
-
     const root = document.documentElement;
     const startPosition = window.scrollY;
     const previousSnapType = root.style.scrollSnapType;
-    const duration = 980;
+    const duration = Math.min(1600, Math.max(1000, startPosition * 0.14));
     let animationStart = 0;
 
     root.style.scrollSnapType = "none";
