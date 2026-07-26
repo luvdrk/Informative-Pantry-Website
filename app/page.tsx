@@ -299,7 +299,7 @@ export default function Home() {
           <BrandMark />
           <span className="header-brand-copy">
             <strong>panzi</strong>
-            <small>smart pantry</small>
+            <small>less waste, better meals</small>
           </span>
         </a>
 
@@ -317,20 +317,20 @@ export default function Home() {
         <nav className={menuOpen ? "site-nav nav-open" : "site-nav"}>
           <div className="nav-links">
             <a href="#features" onClick={closeMenu}>
-              Features
+              <span>01</span> Features
             </a>
             <a href="#how-it-works" onClick={closeMenu}>
-              How it works
+              <span>02</span> How it works
             </a>
             <a href="#overview" onClick={closeMenu}>
-              About
+              <span>03</span> About
             </a>
             <a href="#vision" onClick={closeMenu}>
-              Vision
+              <span>04</span> Vision
             </a>
           </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
-            <span className="nav-cta-label">Discover Panzi</span>
+            <span className="nav-cta-label">Meet Panzi</span>
             <span className="nav-cta-arrow">↗</span>
           </a>
         </nav>

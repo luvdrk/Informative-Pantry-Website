@@ -111,16 +111,25 @@ button {
 .site-header {
   position: sticky;
   z-index: 50;
-  top: 16px;
-  display: grid;
+  top: 18px;
+  display: flex;
   width: min(1180px, calc(100% - 40px));
-  min-height: 64px;
-  margin: 16px auto 0;
-  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 76px;
+  margin: 18px auto 0;
   align-items: center;
-  gap: 12px;
+  overflow: hidden;
+  padding: 7px 8px 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 27px;
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.055), transparent 36%),
+    #153d31;
+  box-shadow:
+    0 22px 50px rgba(15, 45, 36, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
   will-change: transform, opacity;
   transform: translateY(0);
+  backdrop-filter: blur(18px);
   transition:
     opacity 220ms ease,
     transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -144,24 +153,24 @@ button {
 }
 
 .header-brand {
-  min-width: 206px;
-  height: 64px;
-  padding: 7px 18px 7px 9px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  background: var(--pantry-brown-deep);
+  min-width: 250px;
+  height: 60px;
+  padding: 0 26px 0 2px;
+  border: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 0;
+  background: transparent;
   color: var(--paper);
-  box-shadow:
-    0 16px 36px rgba(52, 31, 18, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: none;
   transition:
-    background 180ms ease,
+    color 180ms ease,
     transform 180ms ease;
 }
 
 .header-brand:hover {
-  background: var(--pantry-brown);
-  transform: translateY(-2px);
+  background: transparent;
+  color: var(--lime);
+  transform: translateX(2px);
 }
 
 .header-brand-copy {
@@ -171,16 +180,17 @@ button {
 }
 
 .header-brand-copy strong {
-  font-size: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
   line-height: 1;
-  letter-spacing: -0.8px;
+  letter-spacing: -1px;
 }
 
 .header-brand-copy small {
   color: rgba(255, 253, 247, 0.58);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1.25px;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1.05px;
   text-transform: uppercase;
 }
 
@@ -226,22 +236,22 @@ button {
 }
 
 .site-header .brand-mark {
-  width: 48px;
-  height: 48px;
-  flex-basis: 48px;
-  border: 0;
-  border-radius: 15px;
-  background: var(--pantry-oat);
+  width: 52px;
+  height: 52px;
+  flex-basis: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  background: var(--lime);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    0 7px 14px rgba(25, 13, 7, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    0 0 0 5px rgba(217, 243, 107, 0.08);
 }
 
 .site-header .brand-leaf {
-  left: 13px;
-  width: 9px;
-  height: 15px;
-  background: var(--pantry-brown-deep);
+  left: 14px;
+  width: 10px;
+  height: 16px;
+  background: var(--deep);
 }
 
 .site-header .brand-leaf-one {
@@ -249,8 +259,8 @@ button {
 }
 
 .site-header .brand-leaf-two {
-  top: 16px;
-  left: 21px;
+  top: 17px;
+  left: 23px;
 }
 
 .site-header .brand-dot {
@@ -258,69 +268,66 @@ button {
   bottom: 10px;
   width: 5px;
   height: 5px;
-  background: var(--pantry-caramel);
+  background: var(--deep);
 }
 
 .site-nav {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  min-width: 0;
+  flex: 1;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 20px;
   font-size: 12px;
   font-weight: 700;
 }
 
 .nav-links {
   display: flex;
-  width: 100%;
-  height: 64px;
+  width: auto;
+  height: 60px;
+  flex: 1;
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 1.3vw, 20px);
-  padding: 6px 18px;
-  border: 1px solid rgba(104, 70, 48, 0.12);
-  border-radius: 20px;
-  background: rgba(255, 251, 244, 0.86);
-  box-shadow:
-    0 16px 36px rgba(82, 52, 34, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px);
+  justify-content: flex-start;
+  gap: clamp(3px, 0.5vw, 10px);
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .nav-links a {
   position: relative;
-  padding: 10px clamp(8px, 1vw, 15px);
-  color: #68574a;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px clamp(8px, 1vw, 14px);
+  border-radius: 12px;
+  color: rgba(255, 253, 247, 0.74);
   transition:
+    background 180ms ease,
     color 180ms ease,
     transform 180ms ease;
 }
 
-.nav-links a::after {
-  position: absolute;
-  right: 12px;
-  bottom: 4px;
-  left: 12px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--pantry-caramel);
-  content: "";
-  opacity: 0;
-  transform: scaleX(0.4);
-  transition:
-    opacity 180ms ease,
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+.nav-links a span {
+  color: var(--lime);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
 .nav-links a:hover {
-  color: var(--pantry-brown-deep);
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
   transform: translateY(-1px);
 }
 
-.nav-links a:hover::after,
-.nav-links a:focus-visible::after {
-  opacity: 1;
-  transform: scaleX(1);
+.nav-links a:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
 }
 
 .nav-cta,
@@ -337,17 +344,17 @@ button {
 }
 
 .nav-cta {
-  height: 64px;
-  min-width: 186px;
-  padding: 0 9px 0 20px;
+  height: 60px;
+  min-width: 174px;
+  padding: 0 8px 0 20px;
   justify-content: space-between;
-  border: 1px solid rgba(24, 53, 45, 0.08);
+  border: 0;
   border-radius: 20px;
-  background: var(--lime);
+  background: var(--paper);
   color: var(--deep);
   box-shadow:
-    0 16px 34px rgba(68, 83, 35, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    0 10px 24px rgba(5, 22, 17, 0.22),
+    inset 0 1px 0 white;
 }
 
 .nav-cta-label {
@@ -357,12 +364,12 @@ button {
 
 .nav-cta .nav-cta-arrow {
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 43px;
+  height: 43px;
   place-items: center;
   border-radius: 14px;
-  background: var(--deep);
-  color: var(--lime);
+  background: var(--lime);
+  color: var(--deep);
   font-size: 16px;
   transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -373,7 +380,7 @@ button {
 }
 
 .nav-cta:hover {
-  box-shadow: 0 19px 38px rgba(68, 83, 35, 0.2);
+  box-shadow: 0 14px 30px rgba(5, 22, 17, 0.26);
   transform: translateY(-2px);
 }
 
@@ -387,8 +394,8 @@ button {
   height: 44px;
   cursor: pointer;
   border: 0;
-  border-radius: 50%;
-  background: var(--pantry-brown);
+  border-radius: 15px;
+  background: var(--lime);
 }
 
 .menu-button span {
@@ -396,7 +403,7 @@ button {
   width: 18px;
   height: 2px;
   margin: 5px auto;
-  background: var(--paper);
+  background: var(--deep);
   transition:
     transform 180ms ease,
     opacity 180ms ease;
@@ -1981,34 +1988,39 @@ footer {
   .site-header {
     top: 12px;
     width: calc(100% - 20px);
-    min-height: 64px;
+    min-height: 68px;
     margin-top: 12px;
-    padding: 0;
-    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 5px 6px 5px 8px;
+    overflow: visible;
+    border-radius: 22px;
+    background: #153d31;
     gap: 8px;
   }
 
   .header-brand {
     min-width: 0;
-    width: fit-content;
+    width: auto;
     max-width: 100%;
-    height: 58px;
-    padding: 5px 14px 5px 7px;
-    border-radius: 18px;
+    height: 56px;
+    flex: 1;
+    padding: 0 10px 0 0;
+    border-right: 0;
+    border-radius: 0;
   }
 
   .site-header .brand-mark {
-    width: 46px;
-    height: 46px;
-    flex-basis: 46px;
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
   }
 
   .menu-button {
     display: block;
-    width: 58px;
-    height: 58px;
-    border-radius: 18px;
-    box-shadow: 0 14px 28px rgba(82, 52, 34, 0.16);
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border-radius: 17px;
+    box-shadow: none;
   }
 
   .site-nav {
@@ -2020,10 +2032,10 @@ footer {
     padding: 12px;
     grid-template-columns: 1fr;
     gap: 12px;
-    border: 1px solid rgba(104, 70, 48, 0.12);
-    border-radius: 24px;
-    background: rgba(255, 251, 244, 0.98);
-    box-shadow: 0 22px 48px rgba(82, 52, 34, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    background: #153d31;
+    box-shadow: 0 22px 48px rgba(10, 36, 28, 0.24);
     backdrop-filter: blur(20px);
   }
 
@@ -2048,6 +2060,7 @@ footer {
   .nav-links a {
     padding: 13px 12px;
     border-radius: 13px;
+    color: rgba(255, 253, 247, 0.78);
   }
 
   .nav-cta {
@@ -2056,6 +2069,12 @@ footer {
     width: 100%;
     min-width: 0;
     border-radius: 16px;
+    background: var(--lime);
+  }
+
+  .nav-cta .nav-cta-arrow {
+    background: var(--deep);
+    color: var(--lime);
   }
 
   .hero {
