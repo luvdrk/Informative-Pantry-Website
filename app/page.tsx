@@ -295,9 +295,12 @@ export default function Home() {
       <header
         className={headerHidden ? "site-header header-hidden" : "site-header"}
       >
-        <a className="brand" href="#home" aria-label="Panzi home">
+        <a className="brand header-brand" href="#home" aria-label="Panzi home">
           <BrandMark />
-          <span>panzi</span>
+          <span className="header-brand-copy">
+            <strong>panzi</strong>
+            <small>smart pantry</small>
+          </span>
         </a>
 
         <button
@@ -327,7 +330,8 @@ export default function Home() {
             </a>
           </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
-            Discover Panzi <span>↗</span>
+            <span className="nav-cta-label">Discover Panzi</span>
+            <span className="nav-cta-arrow">↗</span>
           </a>
         </nav>
       </header>
