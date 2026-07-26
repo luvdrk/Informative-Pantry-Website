@@ -118,13 +118,11 @@ button {
   height: 58px;
   cursor: pointer;
   place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 0;
   border-radius: 50%;
-  background: var(--deep);
-  color: var(--lime);
-  box-shadow:
-    0 16px 36px rgba(10, 35, 27, 0.24),
-    inset 0 0 0 5px rgba(217, 243, 107, 0.08);
+  background: var(--lime);
+  color: var(--deep);
+  box-shadow: 0 16px 36px rgba(10, 35, 27, 0.22);
   opacity: 0;
   pointer-events: none;
   transform: translateY(22px) scale(0.78);
@@ -136,12 +134,7 @@ button {
 }
 
 .back-to-top::before {
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(217, 243, 107, 0.38);
-  border-radius: 50%;
-  content: "";
-  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: none;
 }
 
 .back-to-top span {
@@ -160,15 +153,9 @@ button {
 }
 
 .back-to-top:hover {
-  background: var(--forest);
-  box-shadow:
-    0 20px 42px rgba(10, 35, 27, 0.3),
-    inset 0 0 0 5px rgba(217, 243, 107, 0.12);
+  background: #e2fa7e;
+  box-shadow: 0 20px 42px rgba(10, 35, 27, 0.28);
   transform: translateY(-4px) scale(1.03);
-}
-
-.back-to-top:hover::before {
-  transform: rotate(45deg) scale(0.92);
 }
 
 .back-to-top:hover span {

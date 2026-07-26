@@ -297,18 +297,31 @@ export default function Home() {
       return;
     }
 
+    const root = document.documentElement;
     const startPosition = window.scrollY;
-    const duration = 680;
+    const previousSnapType = root.style.scrollSnapType;
+    const duration = 980;
     let animationStart = 0;
+
+    root.style.scrollSnapType = "none";
 
     const animateScroll = (time: number) => {
       if (!animationStart) animationStart = time;
 
       const progress = Math.min((time - animationStart) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 4);
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
       window.scrollTo(0, startPosition * (1 - eased));
 
-      if (progress < 1) requestAnimationFrame(animateScroll);
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+        return;
+      }
+
+      window.scrollTo(0, 0);
+      root.style.scrollSnapType = previousSnapType;
     };
 
     requestAnimationFrame(animateScroll);
