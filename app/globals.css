@@ -130,8 +130,8 @@ button {
   backdrop-filter: blur(22px);
   transform: translateY(0);
   transition:
-    opacity 300ms ease,
-    transform 460ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .site-header.header-hidden {
@@ -2173,7 +2173,7 @@ footer {
   }
 
   .site-header {
-    transition-duration: 300ms, 460ms !important;
+    transition-duration: 220ms, 320ms !important;
   }
 
   .site-intro-ready .orbit-one,
