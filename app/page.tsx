@@ -72,7 +72,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
-  const [animationCycle, setAnimationCycle] = useState(0);
   const [headerHidden, setHeaderHidden] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -114,7 +113,7 @@ export default function Home() {
       window.clearTimeout(scoreTimer);
       revealObserver.disconnect();
     };
-  }, [animationCycle]);
+  }, []);
 
   useEffect(() => {
     const sectionTargets = Array.from(
@@ -284,13 +283,6 @@ export default function Home() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
-  const replayIntro = () => {
-    setIntroReady(false);
-    setPantryScore(0);
-    window.setTimeout(() => {
-      setAnimationCycle((cycle) => cycle + 1);
-    }, 80);
-  };
   const scrollBackToTop = () => {
     const root = document.documentElement;
     const startPosition = window.scrollY;
@@ -406,9 +398,6 @@ export default function Home() {
             <a className="text-link" href="#how-it-works">
               See how it works <span>↓</span>
             </a>
-            <button className="replay-button" type="button" onClick={replayIntro}>
-              <span aria-hidden="true">↻</span> Replay phone intro
-            </button>
           </div>
           <div className="hero-proof" aria-label="Panzi key benefits">
             <span>AI-powered</span>
@@ -488,7 +477,6 @@ export default function Home() {
               <strong>Use it in time</strong>
             </div>
           </div>
-          <span className="concept-label">App concept preview</span>
         </div>
       </section>
 

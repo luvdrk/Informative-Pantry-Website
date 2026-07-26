@@ -566,35 +566,6 @@ h2 em {
   font-weight: 800;
 }
 
-.replay-button {
-  display: inline-flex;
-  cursor: pointer;
-  align-items: center;
-  gap: 7px;
-  padding: 10px 0;
-  border: 0;
-  border-bottom: 1px solid transparent;
-  background: transparent;
-  color: #667a72;
-  font-size: 12px;
-  font-weight: 800;
-  transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
-}
-
-.replay-button:hover {
-  border-color: var(--ink);
-  color: var(--ink);
-  transform: translateY(-1px);
-}
-
-.replay-button span {
-  color: var(--forest);
-  font-size: 17px;
-}
-
 .hero-proof {
   display: flex;
   flex-wrap: wrap;
@@ -954,17 +925,6 @@ h2 em {
   bottom: 118px;
   left: -15px;
   transform: rotate(-4deg);
-}
-
-.concept-label {
-  position: absolute;
-  right: 8px;
-  bottom: 14px;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 .problem-section,
@@ -1589,8 +1549,7 @@ footer {
 .site-intro-pending .hero-visual::before,
 .site-intro-pending .hero-visual::after,
 .site-intro-pending .phone-card,
-.site-intro-pending .floating-card,
-.site-intro-pending .concept-label {
+.site-intro-pending .floating-card {
   opacity: 0;
 }
 
@@ -1700,10 +1659,6 @@ footer {
 
 .site-intro-ready .floating-saved {
   animation: savedCardSpring 650ms 3520ms cubic-bezier(0.16, 1.2, 0.3, 1) both;
-}
-
-.site-intro-ready .concept-label {
-  animation: softFade 500ms 4000ms ease both;
 }
 
 .site-intro-ready .orbit-one {
@@ -1926,15 +1881,6 @@ footer {
   100% {
     opacity: 1;
     transform: translate(0, 0) rotate(-4deg) scale(1);
-  }
-}
-
-@keyframes softFade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
