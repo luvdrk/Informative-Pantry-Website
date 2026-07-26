@@ -72,7 +72,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
-  const [animationCycle, setAnimationCycle] = useState(0);
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -111,23 +113,218 @@ export default function Home() {
       window.clearTimeout(scoreTimer);
       revealObserver.disconnect();
     };
-  }, [animationCycle]);
+  }, []);
+
+  useEffect(() => {
+    const sectionTargets = Array.from(
+      document.querySelectorAll<HTMLElement>("section[id], footer"),
+    );
+    let scrollLocked = false;
+    let wheelAccumulator = 0;
+    let accumulatorTimer = 0;
+    let scrollFrame = 0;
+    let unlockTimer = 0;
+    let previousSnapType = "";
+
+    const findCurrentSection = () => {
+      const snapLine = 0;
+
+      return sectionTargets.reduce((closestIndex, section, index) => {
+        const currentDistance = Math.abs(
+          section.getBoundingClientRect().top - snapLine,
+        );
+        const closestDistance = Math.abs(
+          sectionTargets[closestIndex].getBoundingClientRect().top - snapLine,
+        );
+
+        return currentDistance < closestDistance ? index : closestIndex;
+      }, 0);
+    };
+
+    const animateToSection = (section: HTMLElement) => {
+      const root = document.documentElement;
+      const startPosition = window.scrollY;
+      const targetPosition = Math.max(
+        0,
+        startPosition + section.getBoundingClientRect().top,
+      );
+      const distance = targetPosition - startPosition;
+      const duration = 760;
+      let animationStart = 0;
+
+      previousSnapType = root.style.scrollSnapType;
+      root.style.scrollSnapType = "none";
+
+      const animateScroll = (time: number) => {
+        if (!animationStart) animationStart = time;
+
+        const progress = Math.min((time - animationStart) / duration, 1);
+        const eased =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        window.scrollTo(0, startPosition + distance * eased);
+
+        if (progress < 1) {
+          scrollFrame = requestAnimationFrame(animateScroll);
+          return;
+        }
+
+        window.scrollTo(0, targetPosition);
+        root.style.scrollSnapType = previousSnapType;
+        unlockTimer = window.setTimeout(() => {
+          scrollLocked = false;
+        }, 180);
+      };
+
+      scrollFrame = requestAnimationFrame(animateScroll);
+    };
+
+    const handleSectionWheel = (event: WheelEvent) => {
+      if (
+        event.ctrlKey ||
+        Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
+        event.deltaY === 0
+      ) {
+        return;
+      }
+
+      if (scrollLocked) {
+        event.preventDefault();
+        return;
+      }
+
+      const deltaMultiplier =
+        event.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? 16
+          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? window.innerHeight
+            : 1;
+      const normalizedDelta = event.deltaY * deltaMultiplier;
+
+      if (
+        wheelAccumulator !== 0 &&
+        Math.sign(normalizedDelta) !== Math.sign(wheelAccumulator)
+      ) {
+        wheelAccumulator = 0;
+      }
+
+      wheelAccumulator += normalizedDelta;
+      window.clearTimeout(accumulatorTimer);
+      accumulatorTimer = window.setTimeout(() => {
+        wheelAccumulator = 0;
+      }, 180);
+
+      if (Math.abs(wheelAccumulator) < 84) return;
+
+      event.preventDefault();
+      const direction = wheelAccumulator > 0 ? 1 : -1;
+      wheelAccumulator = 0;
+      const currentSection = findCurrentSection();
+      const nextSection = Math.min(
+        sectionTargets.length - 1,
+        Math.max(0, currentSection + direction),
+      );
+
+      if (nextSection === currentSection) return;
+
+      scrollLocked = true;
+      animateToSection(sectionTargets[nextSection]);
+    };
+
+    window.addEventListener("wheel", handleSectionWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleSectionWheel);
+      cancelAnimationFrame(scrollFrame);
+      window.clearTimeout(accumulatorTimer);
+      window.clearTimeout(unlockTimer);
+      document.documentElement.style.scrollSnapType = previousSnapType;
+    };
+  }, []);
+
+  useEffect(() => {
+    let headerFrame = 0;
+
+    const updateHeaderVisibility = () => {
+      headerFrame = 0;
+      const currentScrollPosition = window.scrollY;
+      const maximumScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const homeSectionTop =
+        document.getElementById("home")?.offsetTop ?? 0;
+      const isPastHomeStart = currentScrollPosition > homeSectionTop + 8;
+
+      setScrollProgress(
+        maximumScroll > 0
+          ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
+          : 0,
+      );
+      setHeaderHidden(isPastHomeStart);
+      setShowBackToTop(currentScrollPosition > window.innerHeight * 0.55);
+      if (isPastHomeStart) setMenuOpen(false);
+    };
+
+    const scheduleHeaderUpdate = () => {
+      if (headerFrame) return;
+      headerFrame = requestAnimationFrame(updateHeaderVisibility);
+    };
+
+    updateHeaderVisibility();
+    window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
+    window.addEventListener("resize", scheduleHeaderUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleHeaderUpdate);
+      window.removeEventListener("resize", scheduleHeaderUpdate);
+      cancelAnimationFrame(headerFrame);
+    };
+  }, []);
 
   const closeMenu = () => setMenuOpen(false);
-  const replayIntro = () => {
-    setIntroReady(false);
-    setPantryScore(0);
-    window.setTimeout(() => {
-      setAnimationCycle((cycle) => cycle + 1);
-    }, 80);
+  const scrollBackToTop = () => {
+    const root = document.documentElement;
+    const startPosition = window.scrollY;
+    const previousSnapType = root.style.scrollSnapType;
+    const duration = Math.min(1600, Math.max(1000, startPosition * 0.14));
+    let animationStart = 0;
+
+    root.style.scrollSnapType = "none";
+
+    const animateScroll = (time: number) => {
+      if (!animationStart) animationStart = time;
+
+      const progress = Math.min((time - animationStart) / duration, 1);
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, startPosition * (1 - eased));
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+        return;
+      }
+
+      window.scrollTo(0, 0);
+      root.style.scrollSnapType = previousSnapType;
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   return (
     <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
-      <header className="site-header">
-        <a className="brand" href="#home" aria-label="Panzi home">
+      <header
+        className={headerHidden ? "site-header header-hidden" : "site-header"}
+      >
+        <a className="brand header-brand" href="#home" aria-label="Panzi home">
           <BrandMark />
-          <span>panzi</span>
+          <span className="header-brand-copy">
+            <strong>panzi</strong>
+            <small>less waste, better meals</small>
+          </span>
         </a>
 
         <button
@@ -142,20 +339,42 @@ export default function Home() {
         </button>
 
         <nav className={menuOpen ? "site-nav nav-open" : "site-nav"}>
-          <a href="#overview" onClick={closeMenu}>
-            About
-          </a>
-          <a href="#how-it-works" onClick={closeMenu}>
-            How it works
-          </a>
-          <a href="#features" onClick={closeMenu}>
-            Features
-          </a>
+          <div className="nav-links">
+            <a href="#features" onClick={closeMenu}>
+              <span>01</span> Features
+            </a>
+            <a href="#how-it-works" onClick={closeMenu}>
+              <span>02</span> How it works
+            </a>
+            <a href="#overview" onClick={closeMenu}>
+              <span>03</span> About
+            </a>
+            <a href="#vision" onClick={closeMenu}>
+              <span>04</span> Vision
+            </a>
+          </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
-            Discover Panzi <span>↗</span>
+            <span className="nav-cta-label">Meet Panzi</span>
+            <span className="nav-cta-arrow">↗</span>
           </a>
         </nav>
       </header>
+
+      <div className="scroll-position-indicator" aria-hidden="true">
+        <span
+          style={{ transform: `translateY(${scrollProgress * 108}px)` }}
+        />
+      </div>
+
+      <button
+        className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
+        type="button"
+        aria-label="Back to top"
+        tabIndex={showBackToTop ? 0 : -1}
+        onClick={scrollBackToTop}
+      >
+        <span aria-hidden="true">↑</span>
+      </button>
 
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
@@ -179,9 +398,6 @@ export default function Home() {
             <a className="text-link" href="#how-it-works">
               See how it works <span>↓</span>
             </a>
-            <button className="replay-button" type="button" onClick={replayIntro}>
-              <span aria-hidden="true">↻</span> Replay phone intro
-            </button>
           </div>
           <div className="hero-proof" aria-label="Panzi key benefits">
             <span>AI-powered</span>
@@ -261,7 +477,6 @@ export default function Home() {
               <strong>Use it in time</strong>
             </div>
           </div>
-          <span className="concept-label">App concept preview</span>
         </div>
       </section>
 
@@ -439,7 +654,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
+      <footer id="footer">
         <div className="footer-main section-shell">
           <div>
             <a className="brand footer-brand" href="#home">
