@@ -75,6 +75,7 @@ export default function Home() {
   const [animationCycle, setAnimationCycle] = useState(0);
   const [headerHidden, setHeaderHidden] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -262,6 +263,7 @@ export default function Home() {
           : 0,
       );
       setHeaderHidden(isPastHomeStart);
+      setShowBackToTop(currentScrollPosition > window.innerHeight * 0.55);
       if (isPastHomeStart) setMenuOpen(false);
     };
 
@@ -288,6 +290,28 @@ export default function Home() {
     window.setTimeout(() => {
       setAnimationCycle((cycle) => cycle + 1);
     }, 80);
+  };
+  const scrollBackToTop = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    const startPosition = window.scrollY;
+    const duration = 680;
+    let animationStart = 0;
+
+    const animateScroll = (time: number) => {
+      if (!animationStart) animationStart = time;
+
+      const progress = Math.min((time - animationStart) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      window.scrollTo(0, startPosition * (1 - eased));
+
+      if (progress < 1) requestAnimationFrame(animateScroll);
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   return (
@@ -341,6 +365,16 @@ export default function Home() {
           style={{ transform: `translateY(${scrollProgress * 108}px)` }}
         />
       </div>
+
+      <button
+        className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
+        type="button"
+        aria-label="Back to top"
+        tabIndex={showBackToTop ? 0 : -1}
+        onClick={scrollBackToTop}
+      >
+        <span aria-hidden="true">↑</span>
+      </button>
 
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
