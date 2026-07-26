@@ -245,10 +245,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let lastScrollPosition = window.scrollY;
-    let lastDirection = 0;
-    let directionTravel = 0;
-    let visibilityInitialized = false;
     let headerFrame = 0;
 
     const updateHeaderVisibility = () => {
@@ -256,35 +252,17 @@ export default function Home() {
       const currentScrollPosition = window.scrollY;
       const maximumScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      const delta = currentScrollPosition - lastScrollPosition;
-      const direction = Math.sign(delta);
+      const homeSectionTop =
+        document.getElementById("home")?.offsetTop ?? 0;
+      const isPastHomeStart = currentScrollPosition > homeSectionTop + 8;
 
       setScrollProgress(
         maximumScroll > 0
           ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
           : 0,
       );
-
-      if (!visibilityInitialized) {
-        setHeaderHidden(currentScrollPosition > 8);
-        visibilityInitialized = true;
-      } else if (currentScrollPosition <= 8) {
-        setHeaderHidden(false);
-        directionTravel = 0;
-      } else if (direction !== 0) {
-        if (direction !== lastDirection) directionTravel = 0;
-        directionTravel += Math.abs(delta);
-
-        if (directionTravel >= 6) {
-          const isScrollingDown = direction > 0;
-          setHeaderHidden(isScrollingDown);
-          if (isScrollingDown) setMenuOpen(false);
-          directionTravel = 0;
-        }
-      }
-
-      if (direction !== 0) lastDirection = direction;
-      lastScrollPosition = currentScrollPosition;
+      setHeaderHidden(isPastHomeStart);
+      if (isPastHomeStart) setMenuOpen(false);
     };
 
     const scheduleHeaderUpdate = () => {
