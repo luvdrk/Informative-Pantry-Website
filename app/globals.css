@@ -149,6 +149,7 @@ button {
   overflow: hidden;
   pointer-events: none;
   background: rgba(24, 53, 45, 0.08);
+  transition: background 260ms ease;
 }
 
 .side-scrollbar span {
@@ -161,8 +162,20 @@ button {
   transform: translateY(
     calc(var(--scroll-progress) * (100vh - var(--thumb-size)))
   );
-  transition: transform 90ms linear;
+  transition:
+    transform 90ms linear,
+    background 260ms ease,
+    box-shadow 260ms ease;
   will-change: transform;
+}
+
+.side-scrollbar.is-light {
+  background: rgba(217, 243, 107, 0.1);
+}
+
+.side-scrollbar.is-light span {
+  background: var(--lime);
+  box-shadow: -3px 0 12px rgba(217, 243, 107, 0.24);
 }
 
 .site-header {

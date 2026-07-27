@@ -75,6 +75,7 @@ export default function Home() {
   const [headerHidden, setHeaderHidden] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [lightScrollThumb, setLightScrollThumb] = useState(false);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -255,12 +256,22 @@ export default function Home() {
       const homeSectionTop =
         document.getElementById("home")?.offsetTop ?? 0;
       const isPastHomeStart = currentScrollPosition > homeSectionTop + 8;
+      const viewportCenter = document.elementFromPoint(
+        window.innerWidth / 2,
+        window.innerHeight / 2,
+      );
+      const activeSection = viewportCenter?.closest("section, footer");
+      const isDarkSection =
+        activeSection?.classList.contains("steps-section") ||
+        activeSection?.classList.contains("vision-section") ||
+        activeSection?.tagName === "FOOTER";
 
       setScrollProgress(
         maximumScroll > 0
           ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
           : 0,
       );
+      setLightScrollThumb(Boolean(isDarkSection));
       setHeaderHidden(isPastHomeStart);
       setShowBackToTop(currentScrollPosition > window.innerHeight * 0.55);
       if (isPastHomeStart) setMenuOpen(false);
@@ -357,7 +368,7 @@ export default function Home() {
       </header>
 
       <div
-        className="side-scrollbar"
+        className={`side-scrollbar${lightScrollThumb ? " is-light" : ""}`}
         style={{ "--scroll-progress": scrollProgress } as CSSProperties}
         aria-hidden="true"
       >
