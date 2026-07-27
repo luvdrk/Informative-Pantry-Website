@@ -357,7 +357,7 @@ export default function Home() {
       </header>
 
       <div
-        className="bottom-scrollbar"
+        className="side-scrollbar"
         style={{ "--scroll-progress": scrollProgress } as CSSProperties}
         aria-hidden="true"
       >

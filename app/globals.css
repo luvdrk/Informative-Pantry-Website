@@ -137,29 +137,29 @@ button {
   outline-offset: 4px;
 }
 
-.bottom-scrollbar {
+.side-scrollbar {
   --scroll-progress: 0;
-  --thumb-size: 104px;
+  --thumb-size: 82px;
   position: fixed;
   z-index: 52;
-  right: 0;
+  top: 0;
+  right: 3px;
   bottom: 0;
-  left: 0;
-  height: 7px;
+  width: 4px;
   overflow: hidden;
   pointer-events: none;
   background: rgba(24, 53, 45, 0.08);
 }
 
-.bottom-scrollbar span {
+.side-scrollbar span {
   display: block;
-  width: var(--thumb-size);
-  height: 100%;
+  width: 100%;
+  height: var(--thumb-size);
   border-radius: 999px;
   background: var(--deep);
-  box-shadow: 0 -3px 14px rgba(16, 40, 32, 0.2);
-  transform: translateX(
-    calc(var(--scroll-progress) * (100vw - var(--thumb-size)))
+  box-shadow: -3px 0 12px rgba(16, 40, 32, 0.16);
+  transform: translateY(
+    calc(var(--scroll-progress) * (100vh - var(--thumb-size)))
   );
   transition: transform 90ms linear;
   will-change: transform;
@@ -2043,9 +2043,10 @@ footer {
 }
 
 @media (max-width: 820px) {
-  .bottom-scrollbar {
-    --thumb-size: 76px;
-    height: 6px;
+  .side-scrollbar {
+    --thumb-size: 64px;
+    right: 2px;
+    width: 3px;
   }
 
   .back-to-top {
