@@ -73,7 +73,6 @@ export default function Home() {
   const [introReady, setIntroReady] = useState(false);
   const [pantryScore, setPantryScore] = useState(0);
   const [headerHidden, setHeaderHidden] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -250,17 +249,10 @@ export default function Home() {
     const updateHeaderVisibility = () => {
       headerFrame = 0;
       const currentScrollPosition = window.scrollY;
-      const maximumScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
       const homeSectionTop =
         document.getElementById("home")?.offsetTop ?? 0;
       const isPastHomeStart = currentScrollPosition > homeSectionTop + 8;
 
-      setScrollProgress(
-        maximumScroll > 0
-          ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
-          : 0,
-      );
       setHeaderHidden(isPastHomeStart);
       setShowBackToTop(currentScrollPosition > window.innerHeight * 0.55);
       if (isPastHomeStart) setMenuOpen(false);
@@ -355,12 +347,6 @@ export default function Home() {
           </a>
         </nav>
       </header>
-
-      <div className="scroll-position-indicator" aria-hidden="true">
-        <span
-          style={{ transform: `translateY(${scrollProgress * 108}px)` }}
-        />
-      </div>
 
       <button
         className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
