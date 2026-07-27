@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 
 const features = [
   {
@@ -76,6 +82,11 @@ export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [lightScrollThumb, setLightScrollThumb] = useState(false);
+  const [scrollThumbDragging, setScrollThumbDragging] = useState(false);
+  const scrollThumbRef = useRef<HTMLSpanElement>(null);
+  const scrollDragOffset = useRef(0);
+  const previousScrollBehavior = useRef("");
+  const previousScrollSnapType = useRef("");
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -294,6 +305,61 @@ export default function Home() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const moveScrollThumb = (clientY: number) => {
+    const thumb = scrollThumbRef.current;
+    if (!thumb) return;
+
+    const availableTrack = Math.max(1, window.innerHeight - thumb.offsetHeight);
+    const thumbPosition = Math.min(
+      availableTrack,
+      Math.max(0, clientY - scrollDragOffset.current),
+    );
+    const maximumScroll = Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight,
+    );
+
+    window.scrollTo(0, (thumbPosition / availableTrack) * maximumScroll);
+  };
+
+  const startScrollThumbDrag = (
+    event: ReactPointerEvent<HTMLSpanElement>,
+  ) => {
+    if (event.button !== 0) return;
+
+    const root = document.documentElement;
+    const thumb = event.currentTarget;
+    scrollDragOffset.current =
+      event.clientY - thumb.getBoundingClientRect().top;
+    previousScrollBehavior.current = root.style.scrollBehavior;
+    previousScrollSnapType.current = root.style.scrollSnapType;
+    root.style.scrollBehavior = "auto";
+    root.style.scrollSnapType = "none";
+    thumb.setPointerCapture(event.pointerId);
+    setScrollThumbDragging(true);
+    event.preventDefault();
+  };
+
+  const dragScrollThumb = (event: ReactPointerEvent<HTMLSpanElement>) => {
+    if (!scrollThumbDragging) return;
+    moveScrollThumb(event.clientY);
+    event.preventDefault();
+  };
+
+  const stopScrollThumbDrag = (
+    event: ReactPointerEvent<HTMLSpanElement>,
+  ) => {
+    if (!scrollThumbDragging) return;
+
+    const root = document.documentElement;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    root.style.scrollBehavior = previousScrollBehavior.current;
+    root.style.scrollSnapType = previousScrollSnapType.current;
+    setScrollThumbDragging(false);
+  };
+
   const scrollBackToTop = () => {
     const root = document.documentElement;
     const startPosition = window.scrollY;
@@ -326,7 +392,10 @@ export default function Home() {
   };
 
   return (
-    <main className={introReady ? "site-intro-ready" : "site-intro-pending"}>
+    <main
+      id="page-content"
+      className={introReady ? "site-intro-ready" : "site-intro-pending"}
+    >
       <header
         className={headerHidden ? "site-header header-hidden" : "site-header"}
       >
@@ -368,11 +437,25 @@ export default function Home() {
       </header>
 
       <div
-        className={`side-scrollbar${lightScrollThumb ? " is-light" : ""}`}
+        className={`side-scrollbar${lightScrollThumb ? " is-light" : ""}${
+          scrollThumbDragging ? " is-dragging" : ""
+        }`}
         style={{ "--scroll-progress": scrollProgress } as CSSProperties}
-        aria-hidden="true"
       >
-        <span />
+        <span
+          ref={scrollThumbRef}
+          role="scrollbar"
+          aria-label="Page scroll"
+          aria-controls="page-content"
+          aria-orientation="vertical"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(scrollProgress * 100)}
+          onPointerDown={startScrollThumbDrag}
+          onPointerMove={dragScrollThumb}
+          onPointerUp={stopScrollThumbDrag}
+          onPointerCancel={stopScrollThumbDrag}
+        />
       </div>
 
       <button
