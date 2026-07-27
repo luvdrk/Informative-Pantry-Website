@@ -215,6 +215,7 @@ button {
   padding: 0;
   border: 0;
   background: transparent;
+  gap: 9px;
   color: var(--deep);
   box-shadow: none;
   transition:
@@ -228,11 +229,24 @@ button {
   transform: translateX(2px);
 }
 
+.header-brand::before {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border: 2px solid rgba(24, 53, 45, 0.14);
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 4px rgba(217, 243, 107, 0.16);
+  content: "";
+}
+
 .header-wordmark {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -1.1px;
+  font-family:
+    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -1.25px;
 }
 
 .brand-mark {
@@ -319,9 +333,11 @@ button {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 30px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family:
+    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav-links {
@@ -339,35 +355,41 @@ button {
 
 .nav-links a {
   position: relative;
-  padding: 13px 2px;
+  padding: 10px 13px;
+  border-radius: 999px;
   color: #31483f;
   transition:
+    background 180ms ease,
     color 180ms ease,
     transform 180ms ease;
 }
 
 .nav-links a::after {
   position: absolute;
-  right: 0;
-  bottom: 7px;
-  left: 0;
-  height: 1px;
-  background: var(--forest);
+  bottom: 4px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--lime-dark);
   content: "";
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translate(-50%, 4px) scale(0);
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-links a:hover {
+  background: rgba(24, 53, 45, 0.065);
   color: var(--deep);
   transform: translateY(-1px);
 }
 
 .nav-links a:hover::after,
 .nav-links a:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
 }
 
 .nav-links a:focus-visible {
@@ -394,9 +416,9 @@ button {
   justify-content: space-between;
   border: 1px solid rgba(24, 53, 45, 0.12);
   border-radius: 999px;
-  background: var(--lime);
-  color: var(--deep);
-  box-shadow: 0 12px 26px rgba(69, 91, 38, 0.16);
+  background: var(--deep);
+  color: white;
+  box-shadow: 0 12px 28px rgba(16, 40, 32, 0.18);
 }
 
 .nav-cta-label {
@@ -411,8 +433,8 @@ button {
   height: 38px;
   place-items: center;
   border-radius: 50%;
-  background: var(--deep);
-  color: var(--lime);
+  background: var(--lime);
+  color: var(--deep);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: 800;
@@ -427,13 +449,13 @@ button {
 }
 
 .nav-cta:hover {
-  background: #e3fa80;
-  box-shadow: 0 16px 32px rgba(69, 91, 38, 0.22);
+  background: var(--forest);
+  box-shadow: 0 16px 34px rgba(16, 40, 32, 0.24);
   transform: translateY(-2px);
 }
 
 .nav-cta:hover .nav-cta-arrow {
-  background: var(--forest);
+  background: #e4fa83;
   transform: rotate(8deg) scale(1.05);
 }
 
@@ -2121,8 +2143,8 @@ footer {
     width: 100%;
     min-width: 0;
     border-radius: 999px;
-    background: var(--lime);
-    color: var(--deep);
+    background: var(--deep);
+    color: white;
   }
 
   .hero {

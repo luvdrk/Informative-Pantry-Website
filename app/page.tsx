@@ -320,7 +320,7 @@ export default function Home() {
         className={headerHidden ? "site-header header-hidden" : "site-header"}
       >
         <a className="brand header-brand" href="#home" aria-label="Panzi home">
-          <span className="header-wordmark">PANZI</span>
+          <span className="header-wordmark">panzi</span>
         </a>
 
         <button
