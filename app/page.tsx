@@ -320,11 +320,7 @@ export default function Home() {
         className={headerHidden ? "site-header header-hidden" : "site-header"}
       >
         <a className="brand header-brand" href="#home" aria-label="Panzi home">
-          <BrandMark />
-          <span className="header-brand-copy">
-            <strong>panzi</strong>
-            <small>less waste, better meals</small>
-          </span>
+          <span className="header-wordmark">PANZI</span>
         </a>
 
         <button
@@ -341,21 +337,20 @@ export default function Home() {
         <nav className={menuOpen ? "site-nav nav-open" : "site-nav"}>
           <div className="nav-links">
             <a href="#features" onClick={closeMenu}>
-              <span>01</span> Features
+              Features
             </a>
             <a href="#how-it-works" onClick={closeMenu}>
-              <span>02</span> How it works
+              How it works
             </a>
             <a href="#overview" onClick={closeMenu}>
-              <span>03</span> About
+              About
             </a>
             <a href="#vision" onClick={closeMenu}>
-              <span>04</span> Vision
+              Vision
             </a>
           </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
-            <span className="nav-cta-label">Meet Panzi</span>
-            <span className="nav-cta-arrow">↗</span>
+            <span className="nav-cta-label">Explore Panzi</span>
           </a>
         </nav>
       </header>

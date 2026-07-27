@@ -173,25 +173,21 @@ button {
 .site-header {
   position: sticky;
   z-index: 50;
-  top: 18px;
+  top: 0;
   display: flex;
-  width: min(1180px, calc(100% - 40px));
-  min-height: 76px;
-  margin: 18px auto 0;
+  width: 100%;
+  min-height: 78px;
+  margin: 0;
   align-items: center;
-  overflow: hidden;
-  padding: 7px 8px 7px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: 27px;
-  background:
-    linear-gradient(110deg, rgba(255, 255, 255, 0.055), transparent 36%),
-    #153d31;
-  box-shadow:
-    0 22px 50px rgba(15, 45, 36, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  padding: 0 clamp(28px, 5vw, 82px);
+  border: 0;
+  border-bottom: 1px solid rgba(24, 53, 45, 0.08);
+  border-radius: 0;
+  background: rgba(240, 242, 237, 0.95);
+  box-shadow: 0 8px 28px rgba(24, 53, 45, 0.055);
   will-change: transform, opacity;
   transform: translateY(0);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(22px);
   transition:
     opacity 220ms ease,
     transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -200,7 +196,7 @@ button {
 .site-header.header-hidden {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(calc(-100% - 34px));
+  transform: translateY(-100%);
 }
 
 .brand {
@@ -215,14 +211,12 @@ button {
 }
 
 .header-brand {
-  min-width: 250px;
-  height: 60px;
-  padding: 0 26px 0 2px;
+  min-width: 190px;
+  height: 78px;
+  padding: 0;
   border: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: 0;
   background: transparent;
-  color: var(--paper);
+  color: var(--deep);
   box-shadow: none;
   transition:
     color 180ms ease,
@@ -231,29 +225,16 @@ button {
 
 .header-brand:hover {
   background: transparent;
-  color: var(--lime);
+  color: var(--forest);
   transform: translateX(2px);
 }
 
-.header-brand-copy {
-  display: grid;
-  gap: 1px;
-  letter-spacing: 0;
-}
-
-.header-brand-copy strong {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.header-brand-copy small {
-  color: rgba(255, 253, 247, 0.58);
-  font-size: 7px;
-  font-weight: 800;
-  letter-spacing: 1.05px;
-  text-transform: uppercase;
+.header-wordmark {
+  font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: -0.9px;
 }
 
 .brand-mark {
@@ -334,62 +315,64 @@ button {
 }
 
 .site-nav {
-  display: flex;
+  display: grid;
   min-width: 0;
   flex: 1;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  font-size: 12px;
-  font-weight: 700;
+  gap: 30px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .nav-links {
   display: flex;
-  width: auto;
-  height: 60px;
-  flex: 1;
+  width: 100%;
+  height: 78px;
   align-items: center;
-  justify-content: flex-start;
-  gap: clamp(3px, 0.5vw, 10px);
-  padding: 0 14px;
+  justify-content: center;
+  gap: clamp(26px, 4.2vw, 70px);
+  padding: 0 20px;
   border: 0;
-  border-radius: 0;
   background: transparent;
   box-shadow: none;
-  backdrop-filter: none;
 }
 
 .nav-links a {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 12px clamp(8px, 1vw, 14px);
-  border-radius: 12px;
-  color: rgba(255, 253, 247, 0.74);
+  padding: 13px 2px;
+  color: #31483f;
   transition:
-    background 180ms ease,
     color 180ms ease,
     transform 180ms ease;
 }
 
-.nav-links a span {
-  color: var(--lime);
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+.nav-links a::after {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  left: 0;
+  height: 1px;
+  background: var(--forest);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-links a:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: white;
+  color: var(--deep);
   transform: translateY(-1px);
 }
 
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 .nav-links a:focus-visible {
-  outline: 2px solid var(--lime);
-  outline-offset: 2px;
+  outline: none;
 }
 
 .nav-cta,
@@ -406,34 +389,19 @@ button {
 }
 
 .nav-cta {
-  height: 60px;
-  min-width: 174px;
-  padding: 0 8px 0 20px;
-  justify-content: space-between;
+  height: 44px;
+  min-width: 132px;
+  padding: 0 22px;
   border: 0;
-  border-radius: 20px;
-  background: var(--paper);
-  color: var(--deep);
-  box-shadow:
-    0 10px 24px rgba(5, 22, 17, 0.22),
-    inset 0 1px 0 white;
+  border-radius: 999px;
+  background: var(--forest);
+  color: white;
+  box-shadow: 0 10px 22px rgba(33, 79, 63, 0.16);
 }
 
 .nav-cta-label {
-  font-size: 12px;
-  letter-spacing: -0.1px;
-}
-
-.nav-cta .nav-cta-arrow {
-  display: grid;
-  width: 43px;
-  height: 43px;
-  place-items: center;
-  border-radius: 14px;
-  background: var(--lime);
-  color: var(--deep);
-  font-size: 16px;
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 10px;
+  letter-spacing: 0.1px;
 }
 
 .primary-button:hover,
@@ -442,12 +410,9 @@ button {
 }
 
 .nav-cta:hover {
-  box-shadow: 0 14px 30px rgba(5, 22, 17, 0.26);
+  background: var(--deep);
+  box-shadow: 0 14px 28px rgba(33, 79, 63, 0.22);
   transform: translateY(-2px);
-}
-
-.nav-cta:hover .nav-cta-arrow {
-  transform: rotate(7deg) scale(1.04);
 }
 
 .menu-button {
@@ -456,8 +421,8 @@ button {
   height: 44px;
   cursor: pointer;
   border: 0;
-  border-radius: 15px;
-  background: var(--lime);
+  border-radius: 50%;
+  background: var(--forest);
 }
 
 .menu-button span {
@@ -465,7 +430,7 @@ button {
   width: 18px;
   height: 2px;
   margin: 5px auto;
-  background: var(--deep);
+  background: white;
   transition:
     transform 180ms ease,
     opacity 180ms ease;
@@ -2056,14 +2021,14 @@ footer {
   }
 
   .site-header {
-    top: 12px;
-    width: calc(100% - 20px);
-    min-height: 68px;
-    margin-top: 12px;
-    padding: 5px 6px 5px 8px;
+    top: 0;
+    width: 100%;
+    min-height: 66px;
+    margin-top: 0;
+    padding: 0 14px 0 18px;
     overflow: visible;
-    border-radius: 22px;
-    background: #153d31;
+    border-radius: 0;
+    background: rgba(240, 242, 237, 0.97);
     gap: 8px;
   }
 
@@ -2071,41 +2036,35 @@ footer {
     min-width: 0;
     width: auto;
     max-width: 100%;
-    height: 56px;
+    height: 66px;
     flex: 1;
     padding: 0 10px 0 0;
     border-right: 0;
     border-radius: 0;
   }
 
-  .site-header .brand-mark {
-    width: 44px;
-    height: 44px;
-    flex-basis: 44px;
-  }
-
   .menu-button {
     display: block;
-    width: 54px;
-    height: 54px;
-    flex: 0 0 54px;
-    border-radius: 17px;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    border-radius: 50%;
     box-shadow: none;
   }
 
   .site-nav {
     position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    left: 0;
+    top: calc(100% + 1px);
+    right: 10px;
+    left: 10px;
     display: none;
     padding: 12px;
     grid-template-columns: 1fr;
     gap: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
-    background: #153d31;
-    box-shadow: 0 22px 48px rgba(10, 36, 28, 0.24);
+    border: 1px solid rgba(24, 53, 45, 0.1);
+    border-radius: 0 0 18px 18px;
+    background: rgba(246, 247, 242, 0.98);
+    box-shadow: 0 22px 48px rgba(24, 53, 45, 0.14);
     backdrop-filter: blur(20px);
   }
 
@@ -2130,21 +2089,16 @@ footer {
   .nav-links a {
     padding: 13px 12px;
     border-radius: 13px;
-    color: rgba(255, 253, 247, 0.78);
+    color: var(--ink);
   }
 
   .nav-cta {
-    height: 56px;
-    justify-content: space-between;
+    height: 50px;
     width: 100%;
     min-width: 0;
-    border-radius: 16px;
-    background: var(--lime);
-  }
-
-  .nav-cta .nav-cta-arrow {
-    background: var(--deep);
-    color: var(--lime);
+    border-radius: 999px;
+    background: var(--forest);
+    color: white;
   }
 
   .hero {
