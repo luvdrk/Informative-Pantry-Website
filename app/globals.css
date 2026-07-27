@@ -230,11 +230,10 @@ button {
 }
 
 .header-wordmark {
-  font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
-  font-size: 19px;
-  font-stretch: condensed;
-  font-weight: 900;
-  letter-spacing: -0.9px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -1.1px;
 }
 
 .brand-mark {
@@ -321,8 +320,9 @@ button {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 30px;
-  font-size: 11px;
-  font-weight: 600;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .nav-links {
@@ -400,8 +400,9 @@ button {
 }
 
 .nav-cta-label {
-  font-size: 10px;
-  letter-spacing: 0.1px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.15px;
 }
 
 .primary-button:hover,
