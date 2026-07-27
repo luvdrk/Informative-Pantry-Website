@@ -175,19 +175,18 @@ button {
   z-index: 50;
   top: 0;
   display: flex;
-  width: 100%;
+  width: min(1180px, calc(100% - 48px));
   min-height: 78px;
-  margin: 0;
+  margin: 0 auto;
   align-items: center;
-  padding: 0 clamp(28px, 5vw, 82px);
+  padding: 0;
   border: 0;
-  border-bottom: 1px solid rgba(24, 53, 45, 0.08);
   border-radius: 0;
-  background: rgba(240, 242, 237, 0.95);
-  box-shadow: 0 8px 28px rgba(24, 53, 45, 0.055);
+  background: transparent;
+  box-shadow: none;
   will-change: transform, opacity;
   transform: translateY(0);
-  backdrop-filter: blur(22px);
+  backdrop-filter: none;
   transition:
     opacity 220ms ease,
     transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -389,14 +388,15 @@ button {
 }
 
 .nav-cta {
-  height: 44px;
-  min-width: 132px;
-  padding: 0 22px;
-  border: 0;
+  height: 50px;
+  min-width: 172px;
+  padding: 5px 6px 5px 22px;
+  justify-content: space-between;
+  border: 1px solid rgba(24, 53, 45, 0.12);
   border-radius: 999px;
-  background: var(--forest);
-  color: white;
-  box-shadow: 0 10px 22px rgba(33, 79, 63, 0.16);
+  background: var(--lime);
+  color: var(--deep);
+  box-shadow: 0 12px 26px rgba(69, 91, 38, 0.16);
 }
 
 .nav-cta-label {
@@ -405,15 +405,36 @@ button {
   letter-spacing: -0.15px;
 }
 
+.nav-cta .nav-cta-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--deep);
+  color: var(--lime);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 180ms ease;
+}
+
 .primary-button:hover,
 .lime-button:hover {
   transform: translateY(-2px);
 }
 
 .nav-cta:hover {
-  background: var(--deep);
-  box-shadow: 0 14px 28px rgba(33, 79, 63, 0.22);
+  background: #e3fa80;
+  box-shadow: 0 16px 32px rgba(69, 91, 38, 0.22);
   transform: translateY(-2px);
+}
+
+.nav-cta:hover .nav-cta-arrow {
+  background: var(--forest);
+  transform: rotate(8deg) scale(1.05);
 }
 
 .menu-button {
@@ -2022,14 +2043,14 @@ footer {
   }
 
   .site-header {
-    top: 0;
-    width: 100%;
+    top: 8px;
+    width: calc(100% - 24px);
     min-height: 66px;
-    margin-top: 0;
-    padding: 0 14px 0 18px;
+    margin: 0 auto;
+    padding: 0;
     overflow: visible;
     border-radius: 0;
-    background: rgba(240, 242, 237, 0.97);
+    background: transparent;
     gap: 8px;
   }
 
@@ -2064,7 +2085,7 @@ footer {
     gap: 12px;
     border: 1px solid rgba(24, 53, 45, 0.1);
     border-radius: 0 0 18px 18px;
-    background: rgba(246, 247, 242, 0.98);
+    background: rgba(235, 241, 218, 0.98);
     box-shadow: 0 22px 48px rgba(24, 53, 45, 0.14);
     backdrop-filter: blur(20px);
   }
@@ -2095,11 +2116,13 @@ footer {
 
   .nav-cta {
     height: 50px;
+    padding: 5px 6px 5px 18px;
+    justify-content: space-between;
     width: 100%;
     min-width: 0;
     border-radius: 999px;
-    background: var(--forest);
-    color: white;
+    background: var(--lime);
+    color: var(--deep);
   }
 
   .hero {

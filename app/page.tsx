@@ -351,6 +351,7 @@ export default function Home() {
           </div>
           <a className="nav-cta" href="#vision" onClick={closeMenu}>
             <span className="nav-cta-label">Explore Panzi</span>
+            <span className="nav-cta-arrow" aria-hidden="true">↗</span>
           </a>
         </nav>
       </header>
