@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 const features = [
   {
@@ -74,6 +74,7 @@ export default function Home() {
   const [pantryScore, setPantryScore] = useState(0);
   const [headerHidden, setHeaderHidden] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let scoreFrame = 0;
@@ -249,10 +250,17 @@ export default function Home() {
     const updateHeaderVisibility = () => {
       headerFrame = 0;
       const currentScrollPosition = window.scrollY;
+      const maximumScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
       const homeSectionTop =
         document.getElementById("home")?.offsetTop ?? 0;
       const isPastHomeStart = currentScrollPosition > homeSectionTop + 8;
 
+      setScrollProgress(
+        maximumScroll > 0
+          ? Math.min(1, Math.max(0, currentScrollPosition / maximumScroll))
+          : 0,
+      );
       setHeaderHidden(isPastHomeStart);
       setShowBackToTop(currentScrollPosition > window.innerHeight * 0.55);
       if (isPastHomeStart) setMenuOpen(false);
@@ -347,6 +355,14 @@ export default function Home() {
           </a>
         </nav>
       </header>
+
+      <div
+        className="bottom-scrollbar"
+        style={{ "--scroll-progress": scrollProgress } as CSSProperties}
+        aria-hidden="true"
+      >
+        <span />
+      </div>
 
       <button
         className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
